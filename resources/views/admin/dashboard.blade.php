@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="mt-4 grid gap-3 sm:grid-cols-3">
                 <a href="{{ route('admin.pengajuan.index', ['status' => 'diajukan']) }}" class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-sm">
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-700">
@@ -77,7 +77,7 @@
                     <p class="mt-0.5 text-xs text-slate-500">menunggu validasi</p>
                 </a>
 
-                <a href="{{ route('admin.laporan.index', ['status' => 'belum_validasi']) }}" class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-sm sm:col-span-2">
+                <a href="{{ route('admin.laporan.index', ['status' => 'belum_validasi']) }}" class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-sm">
                     <div class="flex items-start justify-between gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-50 text-rose-700">
                             <i class="fa-solid fa-file-lines"></i>
