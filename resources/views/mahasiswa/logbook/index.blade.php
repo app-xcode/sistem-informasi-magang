@@ -84,10 +84,13 @@
                                 <div class="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600"><strong>Catatan dosen:</strong> {{ $item->catatan_dosen }}</div>
                             @endif
                             @if($item->status_validasi === 'menunggu')
-                                <form method="POST" action="{{ route('mahasiswa.logbook.destroy', $item) }}" class="mt-3" onsubmit="return confirm('Hapus logbook ini?')">
+                                <div class="mt-3 flex items-center gap-3">
+                                    <a href="{{ route('mahasiswa.logbook.edit', $item) }}" class="text-xs font-semibold text-slate-700 hover:text-slate-950">Edit</a>
+                                    <form method="POST" action="{{ route('mahasiswa.logbook.destroy', $item) }}" onsubmit="return confirm('Hapus logbook ini?')">
                                     @csrf @method('DELETE')
                                     <button class="text-xs font-semibold text-rose-600 hover:text-rose-700">Hapus</button>
-                                </form>
+                                    </form>
+                                </div>
                             @endif
                         </div>
                     @empty
