@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Mahasiswa\LogbookRequest;
 use App\Models\LogKegiatan;
 use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -55,6 +56,19 @@ class LogbookController extends Controller
         LogKegiatan::create($data);
 
         return back()->with('success', 'Kegiatan logbook berhasil ditambahkan dan menunggu validasi dosen.');
+    }
+
+    public function bukti(LogKegiatan $logbook): BinaryFileResponse
+    {
+        $mahasiswa = auth()->user()->mahasiswa;
+
+        abort_unless($mahasiswa && $logbook->magang?->mahasiswa_id === $mahasiswa->id, 403);
+        abort_unless($logbook->bukti_kegiatan, 404);
+
+        $disk = Storage::disk('public');
+        abort_unless($disk->exists($logbook->bukti_kegiatan), 404);
+
+        return response()->file($disk->path($logbook->bukti_kegiatan));
     }
 
     public function edit(LogKegiatan $logbook): View
