@@ -41,6 +41,8 @@ Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasi
     Route::view('/status-magang', 'shared.module', ['pageTitle' => 'Status Magang', 'pageDescription' => 'Lihat status pelaksanaan magang Anda.'])->name('status-magang');
     Route::get('/logbook', [MahasiswaLogbookController::class, 'index'])->name('logbook');
     Route::post('/logbook', [MahasiswaLogbookController::class, 'store'])->name('logbook.store');
+    Route::get('/logbook/{logbook}/edit', [MahasiswaLogbookController::class, 'edit'])->name('logbook.edit');
+    Route::put('/logbook/{logbook}', [MahasiswaLogbookController::class, 'update'])->name('logbook.update');
     Route::delete('/logbook/{logbook}', [MahasiswaLogbookController::class, 'destroy'])->name('logbook.destroy');
     Route::view('/laporan', 'shared.module', ['pageTitle' => 'Laporan Magang', 'pageDescription' => 'Kelola dan kirim laporan magang.'])->name('laporan');
 });
