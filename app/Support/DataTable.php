@@ -3,12 +3,13 @@
 namespace App\Support;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 
 final class DataTable
 {
     public static function sort(
-        Builder $query,
+        Builder|Relation $query,
         Request $request,
         array $columns,
         string $default = 'created_at',
