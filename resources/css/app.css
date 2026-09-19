@@ -7,3 +7,14 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Table header styling */
+table thead {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+}
+
+table thead th {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+}
