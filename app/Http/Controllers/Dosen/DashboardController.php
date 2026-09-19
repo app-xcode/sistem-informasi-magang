@@ -42,11 +42,11 @@ class DashboardController extends Controller
             'sedangMagang' => (clone $magangQuery)->where('status_magang', 'berlangsung')->count(),
             'logbookMenunggu' => LogKegiatan::query()
                 ->where('status_validasi', 'menunggu')
-                ->whereHas('magang', fn ($query) => $query->where('dosen_id', $dosen->id))
+                ->whereHas('magang', fn ($query) => $query->where('dosen_id', $dosen->id)->where('status_pengajuan', 'disetujui'))
                 ->count(),
             'laporanMenunggu' => Laporan::query()
                 ->where('status', 'belum_validasi')
-                ->whereHas('magang', fn ($query) => $query->where('dosen_id', $dosen->id))
+                ->whereHas('magang', fn ($query) => $query->where('dosen_id', $dosen->id)->where('status_pengajuan', 'disetujui'))
                 ->count(),
         ];
 
@@ -59,7 +59,7 @@ class DashboardController extends Controller
         $logbookTerbaru = LogKegiatan::query()
             ->with(['magang.mahasiswa', 'magang.instansi'])
             ->where('status_validasi', 'menunggu')
-            ->whereHas('magang', fn ($query) => $query->where('dosen_id', $dosen->id))
+            ->whereHas('magang', fn ($query) => $query->where('dosen_id', $dosen->id)->where('status_pengajuan', 'disetujui'))
             ->latest('tanggal')
             ->limit(5)
             ->get();
