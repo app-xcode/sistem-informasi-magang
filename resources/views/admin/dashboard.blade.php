@@ -60,7 +60,7 @@
                     <span class="text-sm text-slate-700">Pengajuan menunggu</span>
                     <span class="font-bold text-amber-700">{{ $stats['pengajuanMenunggu'] }}</span>
                 </a>
-                <a href="{{ route('admin.logbook') }}" class="flex items-center justify-between rounded-lg bg-sky-50 p-3">
+                <a href="{{ route('admin.monitoring.index') }}" class="flex items-center justify-between rounded-lg bg-sky-50 p-3">
                     <span class="text-sm text-slate-700">Logbook menunggu</span>
                     <span class="font-bold text-sky-700">{{ $stats['logbookMenunggu'] }}</span>
                 </a>
