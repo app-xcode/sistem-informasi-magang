@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         [/^Setujui$/i, 'fa-check'],
         [/^Tolak$/i, 'fa-xmark'],
         [/^Simpan Validasi$/i, 'fa-check-double'],
+        [/^Validasi$/i, 'fa-check-double'],
+        [/^Perbarui( Profil| Password| Data)?$/i, 'fa-floppy-disk'],
+        [/^Ubah Password$/i, 'fa-key'],
+        [/^Ganti Password$/i, 'fa-key'],
+        [/^Kirim$/i, 'fa-paper-plane'],
+        [/^Lihat Detail$/i, 'fa-eye'],
+        [/^Tambah$/i, 'fa-plus'],
     ];
 
     document.querySelectorAll('main a, main button').forEach((el) => {
