@@ -30,21 +30,21 @@ class AdminFlowTest extends TestCase
     {
         parent::setUp();
 
-        $this->admin = User::create([
+        $this->admin = User::forceCreate([
             'name' => 'Admin Test',
             'email' => 'admin@test.local',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
 
-        $studentUser = User::create([
+        $studentUser = User::forceCreate([
             'name' => 'Mahasiswa Test',
             'email' => 'mahasiswa@test.local',
             'password' => Hash::make('password'),
             'role' => 'mahasiswa',
         ]);
 
-        $dosenUser = User::create([
+        $dosenUser = User::forceCreate([
             'name' => 'Dosen Test',
             'email' => 'dosen@test.local',
             'password' => Hash::make('password'),
