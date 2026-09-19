@@ -24,7 +24,7 @@ class DosenController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('data-dosen', ['Dosen', 'Email', 'NIDN', 'No. HP', 'Alamat'], $query->cursor()->map(
+            return ExcelXmlExporter::download('data-dosen', ['Dosen', 'Email', 'NIDN', 'No. HP', 'Alamat'], $query->lazy(500)->map(
                 fn ($item) => [$item->nama, $item->user?->email ?? '-', $item->nidn, $item->no_hp ?: '-', $item->alamat ?: '-']
             ));
         }
