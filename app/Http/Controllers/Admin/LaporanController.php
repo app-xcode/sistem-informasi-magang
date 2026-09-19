@@ -23,7 +23,7 @@ class LaporanController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('laporan-magang', ['Mahasiswa', 'NIM', 'Perusahaan', 'Dosen', 'File Laporan', 'Tanggal Upload', 'Status'], $query->cursor()->map(
+            return ExcelXmlExporter::download('laporan-magang', ['Mahasiswa', 'NIM', 'Perusahaan', 'Dosen', 'File Laporan', 'Tanggal Upload', 'Status'], $query->lazy(500)->map(
                 fn ($item) => [$item->magang?->mahasiswa?->nama ?? '-', $item->magang?->mahasiswa?->nim ?? '-', $item->magang?->instansi?->nama_instansi ?? '-', $item->magang?->dosen?->nama ?? '-', $item->nama_file, $item->tanggal_upload?->format('d M Y H:i') ?? '-', $item->status]
             ));
         }
