@@ -19,7 +19,7 @@ class LaporanController extends Controller
 
         [$query, $sort, $direction, $perPage] = DataTable::sort(
             $this->query($search, $status), $request,
-            ['nama_file' => 'nama_file', 'tanggal_upload' => 'tanggal_upload', 'status' => 'status'], 'tanggal_upload'
+            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'perusahaan' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'nama_file' => 'nama_file', 'tanggal_upload' => 'tanggal_upload', 'status' => 'status'], 'tanggal_upload'
         );
 
         if ($request->string('export')->toString() === 'excel') {
