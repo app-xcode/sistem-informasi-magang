@@ -22,7 +22,7 @@ class MagangRequest extends FormRequest
             'tanggal_pengajuan' => ['required', 'date'],
             'tanggal_mulai' => ['nullable', 'date', 'after_or_equal:tanggal_pengajuan'],
             'tanggal_selesai' => ['nullable', 'date', 'after_or_equal:tanggal_mulai'],
-            'status_pengajuan' => ['required', Rule::in(['menunggu', 'disetujui', 'ditolak'])],
+            'status_pengajuan' => ['required', Rule::in(['diajukan', 'disetujui', 'ditolak'])],
             'keterangan' => ['nullable', 'string'],
             'alasan_penolakan' => [
                 'nullable',
