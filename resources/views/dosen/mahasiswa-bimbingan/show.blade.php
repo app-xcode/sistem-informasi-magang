@@ -1,0 +1,9 @@
+@extends('layouts.app')
+@section('title','Detail Mahasiswa Bimbingan')
+@section('content')
+<div class="space-y-6">
+<a href="{{ route('dosen.mahasiswa-bimbingan') }}" class="text-sm font-semibold underline">← Kembali</a>
+<div class="rounded-xl border bg-white p-6 shadow-sm"><h1 class="text-2xl font-bold">{{ $magang->mahasiswa?->nama }}</h1><p class="mt-1 text-slate-500">{{ $magang->mahasiswa?->nim }} · {{ $magang->mahasiswa?->program_studi }}</p><div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><div><small>Perusahaan</small><p class="font-semibold">{{ $magang->instansi?->nama_instansi }}</p></div><div><small>Periode</small><p class="font-semibold">{{ $magang->tanggal_mulai?->format('d M Y') ?? '-' }} — {{ $magang->tanggal_selesai?->format('d M Y') ?? '-' }}</p></div><div><small>Status</small><p><x-badge :status="$magang->status_magang"/></p></div><div><small>Judul</small><p class="font-semibold">{{ $magang->judul_magang }}</p></div></div></div>
+<div class="grid gap-6 lg:grid-cols-2"><div class="rounded-xl border bg-white p-6 shadow-sm"><h2 class="font-bold">Logbook</h2><div class="mt-4 space-y-3">@forelse($magang->logKegiatan->take(8) as $log)<div class="border-b pb-3"><b>{{ $log->judul_kegiatan }}</b><p class="text-xs text-slate-500">{{ $log->tanggal?->format('d M Y') }} · {{ ucfirst($log->status_validasi) }}</p></div>@empty<p class="text-sm text-slate-500">Belum ada logbook.</p>@endforelse</div></div><div class="rounded-xl border bg-white p-6 shadow-sm"><h2 class="font-bold">Laporan</h2><div class="mt-4 space-y-3">@forelse($magang->laporan->take(8) as $lap)<div class="border-b pb-3"><b>{{ $lap->nama_file }}</b><p class="text-xs text-slate-500">{{ $lap->tanggal_upload?->format('d M Y H:i') }} · {{ str_replace('_',' ',$lap->status) }}</p></div>@empty<p class="text-sm text-slate-500">Belum ada laporan.</p>@endforelse</div></div></div>
+</div>
+@endsection
