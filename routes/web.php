@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Admin\InstansiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dosen\DashboardController as DosenDashboardController;
 use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
@@ -28,7 +29,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
         Route::resource('mahasiswa', MahasiswaController::class)->except(['show']);
         Route::resource('dosen', DosenController::class)->except(['show']);
-        Route::view('/perusahaan', 'shared.module', ['pageTitle' => 'Data Perusahaan', 'pageDescription' => 'Kelola data instansi atau perusahaan tempat magang.'])->name('perusahaan.index');
+        Route::resource('perusahaan', InstansiController::class)->except(['show']);
         Route::view('/pengajuan', 'shared.module', ['pageTitle' => 'Pengajuan Magang', 'pageDescription' => 'Kelola dan proses pengajuan magang mahasiswa.'])->name('pengajuan.index');
         Route::view('/magang', 'shared.module', ['pageTitle' => 'Data Magang', 'pageDescription' => 'Kelola data pelaksanaan magang mahasiswa.'])->name('magang.index');
         Route::view('/monitoring', 'shared.module', ['pageTitle' => 'Monitoring Magang', 'pageDescription' => 'Pantau aktivitas dan status magang mahasiswa.'])->name('monitoring.index');
