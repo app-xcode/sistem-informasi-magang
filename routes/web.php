@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dosen\DashboardController as DosenDashboardController;
 use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
@@ -24,7 +25,7 @@ Route::middleware(['auth', 'role:admin'])
     ->name('admin.')
     ->group(function () {
         Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
-        Route::view('/mahasiswa', 'shared.module', ['pageTitle' => 'Data Mahasiswa', 'pageDescription' => 'Kelola data mahasiswa yang terdaftar dalam sistem.'])->name('mahasiswa.index');
+        Route::resource('mahasiswa', MahasiswaController::class)->except(['show']);
         Route::view('/dosen', 'shared.module', ['pageTitle' => 'Data Dosen', 'pageDescription' => 'Kelola data dosen pembimbing magang.'])->name('dosen.index');
         Route::view('/perusahaan', 'shared.module', ['pageTitle' => 'Data Perusahaan', 'pageDescription' => 'Kelola data instansi atau perusahaan tempat magang.'])->name('perusahaan.index');
         Route::view('/pengajuan', 'shared.module', ['pageTitle' => 'Pengajuan Magang', 'pageDescription' => 'Kelola dan proses pengajuan magang mahasiswa.'])->name('pengajuan.index');
