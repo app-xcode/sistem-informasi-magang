@@ -1,0 +1,8 @@
+@extends('layouts.app')
+@section('title','Pengajuan Magang')
+@section('content')
+<div class="space-y-6"><div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><h1 class="text-2xl font-bold">Pengajuan Magang</h1><p class="mt-1 text-sm text-slate-500">Ajukan tempat magang dan pantau proses persetujuannya.</p></div><x-button href="{{ route('mahasiswa.pengajuan.create') }}">+ Ajukan Magang</x-button></div>
+<div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"><div class="overflow-x-auto"><table class="min-w-full divide-y divide-slate-200 text-sm"><thead class="bg-slate-50"><tr><th class="px-5 py-3 text-left">Tanggal</th><th class="px-5 py-3 text-left">Judul</th><th class="px-5 py-3 text-left">Perusahaan</th><th class="px-5 py-3 text-left">Pembimbing</th><th class="px-5 py-3 text-left">Status</th></tr></thead><tbody class="divide-y divide-slate-100">@forelse($pengajuan as $item)<tr><td class="px-5 py-4">{{ $item->tanggal_pengajuan?->format('d M Y') }}</td><td class="px-5 py-4 font-semibold">{{ $item->judul_magang }}</td><td class="px-5 py-4">{{ $item->instansi?->nama_instansi ?? '-' }}</td><td class="px-5 py-4">{{ $item->dosen?->nama ?? 'Belum ditentukan' }}</td><td class="px-5 py-4"><x-badge :status="$item->status_pengajuan"/></td></tr>
+@if($item->status_pengajuan==='ditolak')<tr><td colspan="5" class="px-5 pb-4 text-sm text-rose-600">Alasan penolakan: {{ $item->alasan_penolakan ?: '-' }}</td></tr>@endif
+@empty<tr><td colspan="5" class="px-5 py-12 text-center text-slate-500">Belum ada pengajuan. Silakan ajukan magang.</td></tr>@endforelse</tbody></table></div><div class="border-t border-slate-200 px-5 py-4">{{ $pengajuan->links() }}</div></div></div>
+@endsection
