@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title','Penilaian')
+@section('content')
+<div class="space-y-6"><div><h1 class="text-2xl font-bold">Penilaian Magang</h1><p class="mt-1 text-sm text-slate-500">Kelola penilaian mahasiswa bimbingan.</p></div>
+<div class="overflow-x-auto rounded-xl border bg-white shadow-sm"><table class="min-w-full text-sm"><thead class="bg-slate-50"><tr><th class="p-4 text-left">Mahasiswa</th><th class="p-4 text-left">Perusahaan</th><th class="p-4">Nilai Akhir</th><th class="p-4">Tanggal</th><th class="p-4"></th></tr></thead><tbody class="divide-y">@forelse($magang as $item)<tr><td class="p-4"><b>{{ $item->mahasiswa?->nama }}</b><div class="text-xs text-slate-500">{{ $item->mahasiswa?->nim }}</div></td><td class="p-4">{{ $item->instansi?->nama_instansi }}</td><td class="p-4 font-semibold">{{ $item->penilaian?->nilai_akhir ?? 'Belum dinilai' }}</td><td class="p-4">{{ $item->penilaian?->tanggal_penilaian?->format('d M Y') ?? '-' }}</td><td class="p-4"><a href="{{ route('dosen.penilaian.edit',$item) }}" class="rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white">{{ $item->penilaian ? 'Edit Nilai' : 'Beri Nilai' }}</a></td></tr>@empty<tr><td colspan="5" class="p-10 text-center text-slate-500">Belum ada mahasiswa untuk dinilai.</td></tr>@endforelse</tbody></table></div>{{ $magang->links() }}</div>
+@endsection
