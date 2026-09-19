@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
@@ -37,7 +36,7 @@ class LaporanController extends Controller
         return view('admin.laporan.index', compact('laporan', 'search', 'status'));
     }
 
-    public function download(Laporan $laporan): Response
+    public function download(Laporan $laporan)
     {
         abort_unless($laporan->magang?->status_pengajuan === 'disetujui', 404);
         abort_unless(Storage::disk('public')->exists($laporan->file_path), 404);
