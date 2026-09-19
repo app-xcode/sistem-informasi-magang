@@ -21,8 +21,8 @@
         <x-card title="Laporan Menunggu" :value="$stats['laporanMenunggu']" icon="fa-file-lines" icon-class="bg-rose-50 text-rose-700" />
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-5">
-        <div class="lg:col-span-3">
+    <div class="grid gap-6 lg:grid-cols-12">
+        <div class="lg:col-span-8">
             <x-chart
                 type="bar"
                 title="Status Pengajuan"
@@ -32,7 +32,7 @@
             />
         </div>
 
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-4">
             <x-chart
                 type="doughnut"
                 title="Komposisi Pengajuan"
@@ -51,24 +51,42 @@
                     <p class="mt-1 text-xs text-slate-500">Data yang membutuhkan tindakan admin.</p>
                 </div>
             </div>
+
             <div class="mt-4 grid gap-3 sm:grid-cols-3">
-                <a href="{{ route('admin.pengajuan.index', ['status' => 'diajukan']) }}" class="rounded-xl border border-amber-200 bg-amber-50 p-4 transition hover:-translate-y-0.5 hover:shadow-sm">
-                    <i class="fa-solid fa-file-circle-exclamation text-amber-700"></i>
-                    <p class="mt-3 text-sm font-semibold text-slate-800">Pengajuan</p>
-                    <p class="mt-1 text-2xl font-bold text-amber-700">{{ $stats['pengajuanMenunggu'] }}</p>
-                    <p class="text-xs text-slate-500">menunggu persetujuan</p>
+                <a href="{{ route('admin.pengajuan.index', ['status' => 'diajukan']) }}" class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-sm">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-700">
+                            <i class="fa-solid fa-file-circle-exclamation"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-300 transition group-hover:text-amber-600"></i>
+                    </div>
+                    <p class="mt-4 text-sm font-semibold text-slate-800">Pengajuan</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-950">{{ $stats['pengajuanMenunggu'] }}</p>
+                    <p class="mt-0.5 text-xs text-slate-500">menunggu persetujuan</p>
                 </a>
-                <a href="{{ route('admin.monitoring.index') }}" class="rounded-xl border border-sky-200 bg-sky-50 p-4 transition hover:-translate-y-0.5 hover:shadow-sm">
-                    <i class="fa-solid fa-book-open text-sky-700"></i>
-                    <p class="mt-3 text-sm font-semibold text-slate-800">Logbook</p>
-                    <p class="mt-1 text-2xl font-bold text-sky-700">{{ $stats['logbookMenunggu'] }}</p>
-                    <p class="text-xs text-slate-500">menunggu validasi</p>
+
+                <a href="{{ route('admin.monitoring.index') }}" class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-sky-300 hover:shadow-sm">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-700">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-300 transition group-hover:text-sky-600"></i>
+                    </div>
+                    <p class="mt-4 text-sm font-semibold text-slate-800">Logbook</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-950">{{ $stats['logbookMenunggu'] }}</p>
+                    <p class="mt-0.5 text-xs text-slate-500">menunggu validasi</p>
                 </a>
-                <a href="{{ route('admin.laporan.index', ['status' => 'belum_validasi']) }}" class="rounded-xl border border-rose-200 bg-rose-50 p-4 transition hover:-translate-y-0.5 hover:shadow-sm">
-                    <i class="fa-solid fa-file-lines text-rose-700"></i>
-                    <p class="mt-3 text-sm font-semibold text-slate-800">Laporan</p>
-                    <p class="mt-1 text-2xl font-bold text-rose-700">{{ $stats['laporanMenunggu'] }}</p>
-                    <p class="text-xs text-slate-500">menunggu validasi</p>
+
+                <a href="{{ route('admin.laporan.index', ['status' => 'belum_validasi']) }}" class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-rose-300 hover:shadow-sm">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-50 text-rose-700">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-300 transition group-hover:text-rose-600"></i>
+                    </div>
+                    <p class="mt-4 text-sm font-semibold text-slate-800">Laporan</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-950">{{ $stats['laporanMenunggu'] }}</p>
+                    <p class="mt-0.5 text-xs text-slate-500">menunggu validasi</p>
                 </a>
             </div>
         </div>
