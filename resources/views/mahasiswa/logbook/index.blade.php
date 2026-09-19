@@ -78,7 +78,7 @@
                             </div>
                             <p class="mt-3 whitespace-pre-line text-sm text-slate-600">{{ $item->deskripsi }}</p>
                             @if($item->bukti_kegiatan)
-                                <a href="{{ asset('storage/'.$item->bukti_kegiatan) }}" target="_blank" class="mt-3 inline-block text-sm font-semibold text-slate-700 underline">Lihat bukti</a>
+                                <a href="{{ route('mahasiswa.logbook.bukti', $item) }}" target="_blank" class="mt-3 inline-block text-sm font-semibold text-slate-700 underline">Lihat bukti</a>
                             @endif
                             @if($item->catatan_dosen)
                                 <div class="mt-3 rounded-lg bg-slate-50 p-3 text-sm text-slate-600"><strong>Catatan dosen:</strong> {{ $item->catatan_dosen }}</div>
