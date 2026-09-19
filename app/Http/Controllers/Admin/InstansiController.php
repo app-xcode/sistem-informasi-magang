@@ -22,7 +22,7 @@ class InstansiController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('data-perusahaan', ['Perusahaan', 'Alamat', 'Telepon', 'Email', 'Penanggung Jawab'], $query->cursor()->map(
+            return ExcelXmlExporter::download('data-perusahaan', ['Perusahaan', 'Alamat', 'Telepon', 'Email', 'Penanggung Jawab'], $query->lazy(500)->map(
                 fn ($item) => [$item->nama_instansi, $item->alamat, $item->no_telp ?: '-', $item->email ?: '-', $item->penanggung_jawab ?: '-']
             ));
         }
