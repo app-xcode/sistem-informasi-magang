@@ -18,7 +18,7 @@ class MonitoringController extends Controller
 
         [$query, $sort, $direction, $perPage] = DataTable::sort(
             $this->query($search, $status), $request,
-            ['status_magang' => 'status_magang', 'tanggal_mulai' => 'tanggal_mulai', 'tanggal_selesai' => 'tanggal_selesai', 'created_at' => 'created_at'], 'created_at'
+            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'perusahaan' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'tanggal_mulai' => 'tanggal_mulai', 'tanggal_selesai' => 'tanggal_selesai', 'status_magang' => 'status_magang', 'created_at' => 'created_at'], 'created_at'
         );
 
         if ($request->string('export')->toString() === 'excel') {
