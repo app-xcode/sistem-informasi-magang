@@ -245,7 +245,7 @@ class AdminFlowTest extends TestCase
 
         $this->get(route('admin.pengajuan.index', ['page' => 2]))
             ->assertSuccessful()
-            ->assertSee('Pengajuan Tambahan 1');
+            ->assertSee('Pengajuan Tambahan 10');
     }
 
     public function test_admin_rejects_invalid_magang_relations_and_missing_rejection_reason(): void
