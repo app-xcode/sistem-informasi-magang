@@ -10,7 +10,7 @@
             <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-950">Pengajuan Magang</h1>
             <p class="mt-1 text-sm text-slate-500">Kelola pengajuan, dosen pembimbing, dan tempat magang mahasiswa.</p>
         </div>
-        <x-button href="{{ route('admin.pengajuan.create') }}">+ Tambah Pengajuan</x-button>
+        <x-button href="{{ route('admin.pengajuan.create') }}">Tambah Pengajuan</x-button>
     </div>
 
     <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">

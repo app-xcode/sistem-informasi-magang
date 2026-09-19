@@ -10,7 +10,7 @@
                 <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-950">Data Perusahaan</h1>
                 <p class="mt-1 text-sm text-slate-500">Kelola instansi atau perusahaan tempat pelaksanaan magang.</p>
             </div>
-            <x-button href="{{ route('admin.perusahaan.create') }}">+ Tambah Perusahaan</x-button>
+            <x-button href="{{ route('admin.perusahaan.create') }}">Tambah Perusahaan</x-button>
         </div>
 
         <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
