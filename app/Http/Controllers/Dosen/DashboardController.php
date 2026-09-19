@@ -29,6 +29,7 @@ class DashboardController extends Controller
                     'logbookMenunggu' => 0,
                     'laporanMenunggu' => 0,
                 ],
+                'statusMagang' => ['belum_mulai' => 0, 'berlangsung' => 0, 'selesai' => 0],
                 'mahasiswaBimbingan' => new Collection,
                 'logbookTerbaru' => new Collection,
             ]);
@@ -50,6 +51,12 @@ class DashboardController extends Controller
                 ->count(),
         ];
 
+        $statusMagang = [
+            'belum_mulai' => (clone $magangQuery)->where('status_pengajuan', 'disetujui')->where('status_magang', 'belum_mulai')->count(),
+            'berlangsung' => (clone $magangQuery)->where('status_pengajuan', 'disetujui')->where('status_magang', 'berlangsung')->count(),
+            'selesai' => (clone $magangQuery)->where('status_pengajuan', 'disetujui')->where('status_magang', 'selesai')->count(),
+        ];
+
         $mahasiswaBimbingan = (clone $magangQuery)
             ->with(['mahasiswa', 'instansi'])
             ->latest()
@@ -67,6 +74,7 @@ class DashboardController extends Controller
         return view('dosen.dashboard', [
             'dosen' => $dosen,
             'stats' => $stats,
+            'statusMagang' => $statusMagang,
             'mahasiswaBimbingan' => $mahasiswaBimbingan,
             'logbookTerbaru' => $logbookTerbaru,
         ]);
