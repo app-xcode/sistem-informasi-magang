@@ -13,6 +13,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dosen\DashboardController as DosenDashboardController;
 use App\Http\Controllers\Dosen\LogbookController as DosenLogbookController;
 use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
+use App\Http\Controllers\Mahasiswa\ProfileController as MahasiswaProfileController;
+use App\Http\Controllers\Mahasiswa\PengajuanController as MahasiswaPengajuanController;
+use App\Http\Controllers\Mahasiswa\TempatMagangController as MahasiswaTempatMagangController;
+use App\Http\Controllers\Mahasiswa\StatusMagangController as MahasiswaStatusMagangController;
+use App\Http\Controllers\Mahasiswa\LaporanController as MahasiswaLaporanController;
 use App\Http\Controllers\Mahasiswa\LogbookController as MahasiswaLogbookController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,16 +46,23 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::get('/dashboard', MahasiswaDashboardController::class)->name('dashboard');
-    Route::view('/profil', 'shared.module', ['pageTitle' => 'Profil', 'pageDescription' => 'Kelola informasi profil mahasiswa.'])->name('profil');
-    Route::view('/pengajuan', 'shared.module', ['pageTitle' => 'Pengajuan Magang', 'pageDescription' => 'Ajukan dan pantau proses pengajuan magang.'])->name('pengajuan');
-    Route::view('/tempat-magang', 'shared.module', ['pageTitle' => 'Tempat Magang', 'pageDescription' => 'Lihat dan pilih informasi tempat magang.'])->name('tempat-magang');
-    Route::view('/status-magang', 'shared.module', ['pageTitle' => 'Status Magang', 'pageDescription' => 'Lihat status pelaksanaan magang Anda.'])->name('status-magang');
+    Route::get('/profil', [MahasiswaProfileController::class, 'index'])->name('profil');
+    Route::patch('/profil', [MahasiswaProfileController::class, 'update'])->name('profil.update');
+    Route::patch('/profil/password', [MahasiswaProfileController::class, 'updatePassword'])->name('profil.password');
+    Route::get('/pengajuan', [MahasiswaPengajuanController::class, 'index'])->name('pengajuan');
+    Route::get('/pengajuan/create', [MahasiswaPengajuanController::class, 'create'])->name('pengajuan.create');
+    Route::post('/pengajuan', [MahasiswaPengajuanController::class, 'store'])->name('pengajuan.store');
+    Route::get('/tempat-magang', [MahasiswaTempatMagangController::class, 'index'])->name('tempat-magang');
+    Route::get('/status-magang', [MahasiswaStatusMagangController::class, 'index'])->name('status-magang');
     Route::get('/logbook', [MahasiswaLogbookController::class, 'index'])->name('logbook');
     Route::post('/logbook', [MahasiswaLogbookController::class, 'store'])->name('logbook.store');
     Route::get('/logbook/{logbook}/edit', [MahasiswaLogbookController::class, 'edit'])->name('logbook.edit');
     Route::put('/logbook/{logbook}', [MahasiswaLogbookController::class, 'update'])->name('logbook.update');
     Route::delete('/logbook/{logbook}', [MahasiswaLogbookController::class, 'destroy'])->name('logbook.destroy');
-    Route::view('/laporan', 'shared.module', ['pageTitle' => 'Laporan Magang', 'pageDescription' => 'Kelola dan kirim laporan magang.'])->name('laporan');
+    Route::get('/laporan', [MahasiswaLaporanController::class, 'index'])->name('laporan');
+    Route::post('/laporan', [MahasiswaLaporanController::class, 'store'])->name('laporan.store');
+    Route::get('/laporan/{laporan}/download', [MahasiswaLaporanController::class, 'download'])->name('laporan.download');
+    Route::delete('/laporan/{laporan}', [MahasiswaLaporanController::class, 'destroy'])->name('laporan.destroy');
 });
 
 Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->group(function () {
