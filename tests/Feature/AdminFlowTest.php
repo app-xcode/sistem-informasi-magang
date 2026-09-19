@@ -283,6 +283,8 @@ class AdminFlowTest extends TestCase
 
     public function test_admin_dashboard_and_modules_follow_approved_internship_flow(): void
     {
+        $this->actingAs($this->admin);
+
         $rejected = Magang::create([
             'mahasiswa_id' => $this->mahasiswa->id,
             'dosen_id' => $this->dosen->id,
@@ -343,6 +345,8 @@ class AdminFlowTest extends TestCase
 
     public function test_admin_can_filter_monitoring_and_reports(): void
     {
+        $this->actingAs($this->admin);
+
         $approvedDone = Magang::create([
             'mahasiswa_id' => $this->mahasiswa->id,
             'dosen_id' => $this->dosen->id,
