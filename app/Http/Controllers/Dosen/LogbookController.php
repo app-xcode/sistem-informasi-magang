@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dosen\LogbookValidationRequest;
 use App\Models\LogKegiatan;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -32,6 +34,16 @@ class LogbookController extends Controller
             ->withQueryString();
 
         return view('dosen.logbook.index', compact('logbook', 'status'));
+    }
+
+    public function bukti(LogKegiatan $logbook): BinaryFileResponse
+    {
+        $dosen = auth()->user()->dosen;
+        abort_unless($dosen && $logbook->magang?->dosen_id === $dosen->id && $logbook->magang?->status_pengajuan === 'disetujui', 403);
+        abort_unless($logbook->bukti_kegiatan, 404);
+        $disk = Storage::disk('public');
+        abort_unless($disk->exists($logbook->bukti_kegiatan), 404);
+        return response()->file($disk->path($logbook->bukti_kegiatan));
     }
 
     public function validateLogbook(LogbookValidationRequest $request, LogKegiatan $logbook): RedirectResponse
