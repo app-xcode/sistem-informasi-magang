@@ -61,7 +61,7 @@
                 </dl>
             @else
                 <div class="rounded-md border border-dashed border-slate-300 p-6 text-sm text-slate-500">
-                    Belum ada data magang. Ajukan magang setelah modul pengajuan tersedia.
+                    Belum ada data magang. Silakan ajukan magang melalui menu Pengajuan Magang.
                 </div>
             @endif
         </x-card>
@@ -85,10 +85,10 @@
 
     <x-card title="Quick Action">
         <div class="flex flex-wrap gap-3">
-            <x-button href="#">Ajukan Magang</x-button>
-            <x-button href="#" variant="secondary">Tambah Logbook</x-button>
-            <x-button href="#" variant="secondary">Lihat Status</x-button>
-            <x-button href="#" variant="secondary">Upload Laporan</x-button>
+            <x-button href="{{ route('mahasiswa.pengajuan.create') }}">Ajukan Magang</x-button>
+            <x-button href="{{ route('mahasiswa.logbook') }}" variant="secondary">Tambah Logbook</x-button>
+            <x-button href="{{ route('mahasiswa.status-magang') }}" variant="secondary">Lihat Status</x-button>
+            <x-button href="{{ route('mahasiswa.laporan') }}" variant="secondary">Upload Laporan</x-button>
         </div>
     </x-card>
 @endsection
