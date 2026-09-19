@@ -6,17 +6,39 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MahasiswaRequest;
 use App\Models\Mahasiswa;
 use App\Models\User;
+use App\Support\DataTable;
+use App\Support\ExcelXmlExporter;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class MahasiswaController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View|\Illuminate\Http\Response
     {
-        $search = request('q');
+        $search = $request->string('q')->toString();
+        [$query, $sort, $direction, $perPage] = DataTable::sort(
+            $this->query($search),
+            $request,
+            ['nama' => 'nama', 'nim' => 'nim', 'program_studi' => 'program_studi', 'no_hp' => 'no_hp'],
+            'created_at'
+        );
 
-        $mahasiswa = Mahasiswa::query()
+        if ($request->string('export')->toString() === 'excel') {
+            return ExcelXmlExporter::download('data-mahasiswa', ['Mahasiswa', 'Email', 'NIM', 'Program Studi', 'No. HP'], $query->lazy(500)->map(
+                fn ($item) => [$item->nama, $item->user?->email ?? '-', $item->nim, $item->program_studi, $item->no_hp ?: '-']
+            ));
+        }
+
+        $mahasiswa = $query->paginate($perPage)->withQueryString();
+
+        return view('admin.mahasiswa.index', compact('mahasiswa', 'search', 'sort', 'direction', 'perPage'));
+    }
+
+    private function query(?string $search)
+    {
+        return Mahasiswa::query()
             ->with('user')
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
@@ -25,12 +47,7 @@ class MahasiswaController extends Controller
                         ->orWhere('program_studi', 'like', "%{$search}%")
                         ->orWhereHas('user', fn ($user) => $user->where('email', 'like', "%{$search}%"));
                 });
-            })
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('admin.mahasiswa.index', compact('mahasiswa', 'search'));
+            });
     }
 
     public function create(): View
@@ -58,15 +75,12 @@ class MahasiswaController extends Controller
             ]);
         });
 
-        return redirect()
-            ->route('admin.mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil ditambahkan.');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil ditambahkan.');
     }
 
     public function edit(Mahasiswa $mahasiswa): View
     {
         $mahasiswa->load('user');
-
         return view('admin.mahasiswa.edit', compact('mahasiswa'));
     }
 
@@ -84,18 +98,12 @@ class MahasiswaController extends Controller
             $user = $mahasiswa->user;
             $user->name = $request->string('nama')->toString();
             $user->email = $request->string('email')->toString();
-
-            if ($request->filled('password')) {
-                $user->password = $request->string('password')->toString();
-            }
-
+            if ($request->filled('password')) $user->password = $request->string('password')->toString();
             $user->role = 'mahasiswa';
             $user->save();
         });
 
-        return redirect()
-            ->route('admin.mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil diperbarui.');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil diperbarui.');
     }
 
     public function destroy(Mahasiswa $mahasiswa): RedirectResponse
@@ -107,14 +115,9 @@ class MahasiswaController extends Controller
         DB::transaction(function () use ($mahasiswa) {
             $user = $mahasiswa->user;
             $mahasiswa->delete();
-
-            if ($user) {
-                $user->delete();
-            }
+            if ($user) $user->delete();
         });
 
-        return redirect()
-            ->route('admin.mahasiswa.index')
-            ->with('success', 'Data mahasiswa berhasil dihapus.');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data mahasiswa berhasil dihapus.');
     }
 }
