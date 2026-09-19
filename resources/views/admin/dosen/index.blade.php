@@ -10,7 +10,7 @@
                 <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-950">Data Dosen</h1>
                 <p class="mt-1 text-sm text-slate-500">Kelola akun dan informasi dosen pembimbing magang.</p>
             </div>
-            <x-button href="{{ route('admin.dosen.create') }}">+ Tambah Dosen</x-button>
+            <x-button href="{{ route('admin.dosen.create') }}">Tambah Dosen</x-button>
         </div>
 
         <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
