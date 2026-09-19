@@ -22,7 +22,7 @@ class MonitoringController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('monitoring-magang', ['Mahasiswa', 'NIM', 'Dosen', 'Perusahaan', 'Mulai', 'Selesai', 'Status', 'Logbook'], $query->cursor()->map(
+            return ExcelXmlExporter::download('monitoring-magang', ['Mahasiswa', 'NIM', 'Dosen', 'Perusahaan', 'Mulai', 'Selesai', 'Status', 'Logbook'], $query->lazy(500)->map(
                 fn ($item) => [$item->mahasiswa?->nama ?? '-', $item->mahasiswa?->nim ?? '-', $item->dosen?->nama ?? '-', $item->instansi?->nama_instansi ?? '-', $item->tanggal_mulai?->format('d M Y') ?? '-', $item->tanggal_selesai?->format('d M Y') ?? '-', $item->status_magang, $item->log_kegiatan_count]
             ));
         }
