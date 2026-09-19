@@ -22,7 +22,7 @@ class MagangController extends Controller
         $status = $request->string('status')->toString();
         [$query, $sort, $direction, $perPage] = DataTable::sort(
             $this->query($search, $status), $request,
-            ['judul_magang' => 'judul_magang', 'status_pengajuan' => 'status_pengajuan', 'created_at' => 'created_at'], 'created_at'
+            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'judul_magang' => 'judul_magang', 'dosen' => fn ($q, $dir) => $q->orderBy(Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'perusahaan' => fn ($q, $dir) => $q->orderBy(Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'status_pengajuan' => 'status_pengajuan', 'created_at' => 'created_at'], 'created_at'
         );
 
         if ($request->string('export')->toString() === 'excel') {
