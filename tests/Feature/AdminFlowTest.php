@@ -132,7 +132,7 @@ class AdminFlowTest extends TestCase
             ->assertSuccessful()
             ->assertSee('Mahasiswa Test')
             ->assertSee('PT Test Magang')
-            ->assertSee('Sistem Informasi Test')
+            ->assertSee('Dashboard Admin')
             ->assertSee('Pengajuan')
             ->assertSee('Logbook')
             ->assertSee('Laporan');
