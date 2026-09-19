@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('data-mahasiswa', ['Mahasiswa', 'Email', 'NIM', 'Program Studi', 'No. HP'], $query->cursor()->map(
+            return ExcelXmlExporter::download('data-mahasiswa', ['Mahasiswa', 'Email', 'NIM', 'Program Studi', 'No. HP'], $query->lazy(500)->map(
                 fn ($item) => [$item->nama, $item->user?->email ?? '-', $item->nim, $item->program_studi, $item->no_hp ?: '-']
             ));
         }
