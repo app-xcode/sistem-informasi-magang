@@ -26,7 +26,7 @@ class PengajuanController extends Controller
         return view('mahasiswa.pengajuan.index', compact('mahasiswa','pengajuan'));
     }
 
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
         $mahasiswa = auth()->user()->mahasiswa;
         abort_unless($mahasiswa, 404);
