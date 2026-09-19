@@ -25,12 +25,18 @@ class DashboardController extends Controller
             : null;
 
         $logbookCount = $magang?->logKegiatan()->count() ?? 0;
+        $logbookStatus = [
+            'menunggu' => $magang?->logKegiatan()->where('status_validasi', 'menunggu')->count() ?? 0,
+            'disetujui' => $magang?->logKegiatan()->where('status_validasi', 'disetujui')->count() ?? 0,
+            'ditolak' => $magang?->logKegiatan()->where('status_validasi', 'ditolak')->count() ?? 0,
+        ];
         $logbookTerakhir = $magang?->logKegiatan()->latest('tanggal')->first();
 
         return view('mahasiswa.dashboard', [
             'mahasiswa' => $mahasiswa,
             'magang' => $magang,
             'logbookCount' => $logbookCount,
+            'logbookStatus' => $logbookStatus,
             'logbookTerakhir' => $logbookTerakhir,
         ]);
     }
