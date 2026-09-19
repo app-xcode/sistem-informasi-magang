@@ -27,7 +27,18 @@ use App\Http\Controllers\Mahasiswa\LaporanController as MahasiswaLaporanControll
 use App\Http\Controllers\Mahasiswa\LogbookController as MahasiswaLogbookController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', function () {
+    if (!auth()->check()) {
+        return redirect()->route('login');
+    }
+
+    return match (auth()->user()->role) {
+        'admin' => redirect()->route('admin.dashboard'),
+        'mahasiswa' => redirect()->route('mahasiswa.dashboard'),
+        'dosen' => redirect()->route('dosen.dashboard'),
+        default => redirect()->route('login'),
+    };
+})->name('home');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
