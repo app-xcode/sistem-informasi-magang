@@ -37,8 +37,8 @@
     <div>
         <label for="status_pengajuan" class="mb-1.5 block text-sm font-semibold text-slate-700">Status Pengajuan <span class="text-rose-500">*</span></label>
         <select id="status_pengajuan" name="status_pengajuan" required class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
-            @foreach(['menunggu' => 'Menunggu', 'disetujui' => 'Disetujui', 'ditolak' => 'Ditolak'] as $value => $label)
-                <option value="{{ $value }}" @selected(old('status_pengajuan', $pengajuan->status_pengajuan ?? 'menunggu') === $value)>{{ $label }}</option>
+            @foreach(['diajukan' => 'Diajukan', 'disetujui' => 'Disetujui', 'ditolak' => 'Ditolak'] as $value => $label)
+                <option value="{{ $value }}" @selected(old('status_pengajuan', $pengajuan->status_pengajuan ?? 'diajukan') === $value)>{{ $label }}</option>
             @endforeach
         </select>
         @error('status_pengajuan')<p class="mt-1 text-xs text-rose-600">{{ $message }}</p>@enderror
