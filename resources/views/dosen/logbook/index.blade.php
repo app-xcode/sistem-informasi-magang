@@ -54,7 +54,7 @@
                             <p class="font-semibold text-slate-900">{{ $item->judul_kegiatan }}</p>
                             <p class="mt-1 whitespace-pre-line text-slate-600">{{ $item->deskripsi }}</p>
                             @if($item->bukti_kegiatan)
-                                <a href="{{ asset('storage/'.$item->bukti_kegiatan) }}" target="_blank" class="mt-2 inline-block text-xs font-semibold text-slate-700 underline">Lihat bukti</a>
+                                <a href="{{ route('dosen.logbook.bukti', $item) }}" target="_blank" class="mt-2 inline-block text-xs font-semibold text-slate-700 underline">Lihat bukti</a>
                             @endif
                         </td>
                         <td class="px-5 py-4"><span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ $class }}">{{ ucfirst($item->status_validasi) }}</span></td>
