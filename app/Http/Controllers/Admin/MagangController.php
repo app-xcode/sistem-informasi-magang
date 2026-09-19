@@ -26,7 +26,7 @@ class MagangController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('pengajuan-magang', ['Mahasiswa', 'NIM', 'Judul Magang', 'Dosen', 'Perusahaan', 'Status Pengajuan'], $query->cursor()->map(
+            return ExcelXmlExporter::download('pengajuan-magang', ['Mahasiswa', 'NIM', 'Judul Magang', 'Dosen', 'Perusahaan', 'Status Pengajuan'], $query->lazy(500)->map(
                 fn ($item) => [$item->mahasiswa?->nama ?? '-', $item->mahasiswa?->nim ?? '-', $item->judul_magang ?: '-', $item->dosen?->nama ?? '-', $item->instansi?->nama_instansi ?? '-', $item->status_pengajuan]
             ));
         }
