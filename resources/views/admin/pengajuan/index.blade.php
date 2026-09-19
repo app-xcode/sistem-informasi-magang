@@ -20,7 +20,7 @@
                 class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
             <select name="status" class="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-700 outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
                 <option value="">Semua Status</option>
-                <option value="menunggu" @selected($status === 'menunggu')>Menunggu</option>
+                <option value="diajukan" @selected($status === 'diajukan')>Diajukan</option>
                 <option value="disetujui" @selected($status === 'disetujui')>Disetujui</option>
                 <option value="ditolak" @selected($status === 'ditolak')>Ditolak</option>
             </select>
