@@ -1,0 +1,7 @@
+@extends('layouts.app')
+@section('title','Tempat Magang')
+@section('content')
+<div class="space-y-6"><div><h1 class="text-2xl font-bold">Tempat Magang</h1><p class="mt-1 text-sm text-slate-500">Cari informasi perusahaan yang tersedia untuk pengajuan magang.</p></div>
+<form method="GET" class="flex gap-3"><input name="q" value="{{ $search }}" placeholder="Cari perusahaan, alamat, penanggung jawab..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm"><button class="rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white">Cari</button></form>
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">@forelse($instansi as $item)<div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"><h2 class="font-bold">{{ $item->nama_instansi }}</h2><p class="mt-2 text-sm text-slate-600">{{ $item->alamat }}</p><dl class="mt-4 space-y-1 text-xs text-slate-500"><div><dt class="inline font-semibold">PIC:</dt> <dd class="inline">{{ $item->penanggung_jawab ?: '-' }}</dd></div><div><dt class="inline font-semibold">Telepon:</dt> <dd class="inline">{{ $item->no_telp ?: '-' }}</dd></div></dl><a href="{{ route('mahasiswa.pengajuan.create',['instansi_id'=>$item->id]) }}" class="mt-5 inline-flex rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white">Ajukan di sini</a></div>@empty<div class="sm:col-span-2 lg:col-span-3 rounded-xl border border-dashed border-slate-300 p-10 text-center text-sm text-slate-500">Belum ada tempat magang tersedia.</div>@endforelse</div><div>{{ $instansi->links() }}</div></div>
+@endsection
