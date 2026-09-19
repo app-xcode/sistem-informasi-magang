@@ -311,7 +311,7 @@ class AdminFlowTest extends TestCase
 
         $this->get(route('admin.dashboard'))
             ->assertSuccessful()
-            ->assertSee('Mengerjakan fitur dashboard')
+            ->assertSee('Mahasiswa Test')
             ->assertDontSee('Logbook Ditolak')
             ->assertDontSee('laporan-ditolak.pdf');
 
