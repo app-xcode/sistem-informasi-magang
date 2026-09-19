@@ -5,31 +5,77 @@ namespace App\Http\Controllers\Mahasiswa;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Mahasiswa\LaporanRequest;
 use App\Models\Laporan;
+use App\Support\DataTable;
+use App\Support\ExcelXmlExporter;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class LaporanController extends Controller
 {
-    public function index(): View
+    public function index(Request $request)
     {
         $mahasiswa = auth()->user()->mahasiswa;
         abort_unless($mahasiswa, 404);
 
         $magang = $mahasiswa->magang()
-            ->with(['instansi','dosen'])
-            ->where('status_pengajuan','disetujui')
-            ->whereIn('status_magang',['belum_mulai','berlangsung','selesai'])
+            ->with(['instansi', 'dosen'])
+            ->where('status_pengajuan', 'disetujui')
+            ->whereIn('status_magang', ['belum_mulai', 'berlangsung', 'selesai'])
             ->latest('id')
             ->first();
 
-        $laporan = $magang
-            ? $magang->laporan()->latest('tanggal_upload')->latest('id')->get()
+        $search = trim((string) $request->query('q'));
+        $status = $request->string('status')->toString();
+
+        $query = $magang
+            ? $magang->laporan()
+                ->when($search, fn ($q) => $q->where(function ($query) use ($search) {
+                    $query->where('nama_file', 'like', "%{$search}%")
+                        ->orWhere('catatan_dosen', 'like', "%{$search}%");
+                }))
+                ->when($status, fn ($q) => $q->where('status', $status))
+            : null;
+
+        $canUpload = $magang && ! $magang->laporan()->where('status', 'belum_validasi')->exists();
+
+        if ($query) {
+            [$query, $sort, $direction, $perPage] = DataTable::sort($query, $request, [
+                'nama_file' => 'nama_file',
+                'tanggal_upload' => 'tanggal_upload',
+                'status' => 'status',
+            ], 'tanggal_upload');
+        } else {
+            $sort = 'tanggal_upload';
+            $direction = 'desc';
+            $perPage = in_array((int) $request->input('per_page', 10), [10, 25, 50, 100], true)
+                ? (int) $request->input('per_page', 10)
+                : 10;
+        }
+
+        if ($request->query('export') === 'excel') {
+            $rows = $query
+                ? $query->lazy(500)->map(fn ($item) => [
+                    $item->nama_file,
+                    $item->tanggal_upload?->format('d M Y H:i') ?? '-',
+                    str_replace('_', ' ', ucfirst($item->status)),
+                    $item->catatan_dosen ?? '-',
+                ])
+                : collect();
+
+            return ExcelXmlExporter::download('laporan-magang', [
+                'File', 'Tanggal Upload', 'Status', 'Catatan Dosen',
+            ], $rows);
+        }
+
+        $laporan = $query
+            ? $query->paginate($perPage)->withQueryString()
             : collect();
 
-        $canUpload = $magang && ! $magang->laporan()->where('status','belum_validasi')->exists();
-
-        return view('mahasiswa.laporan.index', compact('mahasiswa','magang','laporan','canUpload'));
+        return view('mahasiswa.laporan.index', compact(
+            'mahasiswa', 'magang', 'laporan', 'canUpload', 'search', 'status', 'sort', 'direction', 'perPage'
+        ));
     }
 
     public function store(LaporanRequest $request): RedirectResponse
@@ -38,13 +84,13 @@ class LaporanController extends Controller
         abort_unless($mahasiswa, 404);
 
         $magang = $mahasiswa->magang()
-            ->where('status_pengajuan','disetujui')
-            ->whereIn('status_magang',['belum_mulai','berlangsung','selesai'])
+            ->where('status_pengajuan', 'disetujui')
+            ->whereIn('status_magang', ['belum_mulai', 'berlangsung', 'selesai'])
             ->latest('id')->first();
 
         abort_unless($magang, 403);
 
-        if ($magang->laporan()->where('status','belum_validasi')->exists()) {
+        if ($magang->laporan()->where('status', 'belum_validasi')->exists()) {
             return back()->with('error', 'Masih ada laporan yang menunggu validasi dosen.');
         }
 
@@ -67,7 +113,6 @@ class LaporanController extends Controller
         $mahasiswa = auth()->user()->mahasiswa;
         abort_unless($mahasiswa && $laporan->magang?->mahasiswa_id === $mahasiswa->id, 403);
         abort_unless(Storage::disk('public')->exists($laporan->file_path), 404);
-
         return Storage::disk('public')->download($laporan->file_path, $laporan->nama_file);
     }
 
