@@ -56,6 +56,7 @@ Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasi
     Route::get('/status-magang', [MahasiswaStatusMagangController::class, 'index'])->name('status-magang');
     Route::get('/logbook', [MahasiswaLogbookController::class, 'index'])->name('logbook');
     Route::post('/logbook', [MahasiswaLogbookController::class, 'store'])->name('logbook.store');
+    Route::get('/logbook/{logbook}/bukti', [MahasiswaLogbookController::class, 'bukti'])->name('logbook.bukti');
     Route::get('/logbook/{logbook}/edit', [MahasiswaLogbookController::class, 'edit'])->name('logbook.edit');
     Route::put('/logbook/{logbook}', [MahasiswaLogbookController::class, 'update'])->name('logbook.update');
     Route::delete('/logbook/{logbook}', [MahasiswaLogbookController::class, 'destroy'])->name('logbook.destroy');
