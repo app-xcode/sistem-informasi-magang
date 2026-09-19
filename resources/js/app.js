@@ -1,5 +1,3 @@
-import './bootstrap';
-
 document.addEventListener('DOMContentLoaded', () => {
     const iconMap = [
         [/^\+?\s*Tambah\b/i, 'fa-plus'],
