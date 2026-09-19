@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         data: {
             labels: @json($labels),
             datasets: [{
+                label: @json($title),
                 data: @json($data),
                 borderWidth: 2,
                 borderColor: '#ffffff',
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
+                    display: @json($type !== 'bar'),
                     position: 'bottom',
                     labels: { usePointStyle: true, boxWidth: 8, padding: 16 },
                 },
