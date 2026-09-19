@@ -12,24 +12,24 @@
 
     <div class="grid gap-4 sm:grid-cols-3">
         @php
-            $counts = [
-                'belum_validasi' => \App\Models\Laporan::where('status', 'belum_validasi')->count(),
-                'disetujui' => \App\Models\Laporan::where('status', 'disetujui')->count(),
-                'ditolak' => \App\Models\Laporan::where('status', 'ditolak')->count(),
-            ];
+            $counts = \App\Models\Laporan::query()
+                ->whereHas('magang', fn ($query) => $query->where('status_pengajuan', 'disetujui'))
+                ->selectRaw("status, COUNT(*) as total")
+                ->groupBy('status')
+                ->pluck('total', 'status');
         @endphp
 
         <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <p class="text-sm text-slate-500">Belum Validasi</p>
-            <p class="mt-1 text-2xl font-bold text-amber-600">{{ $counts['belum_validasi'] }}</p>
+            <p class="mt-1 text-2xl font-bold text-amber-600">{{ $counts['belum_validasi'] ?? 0 }}</p>
         </div>
         <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <p class="text-sm text-slate-500">Disetujui</p>
-            <p class="mt-1 text-2xl font-bold text-emerald-600">{{ $counts['disetujui'] }}</p>
+            <p class="mt-1 text-2xl font-bold text-emerald-600">{{ $counts['disetujui'] ?? 0 }}</p>
         </div>
         <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <p class="text-sm text-slate-500">Ditolak</p>
-            <p class="mt-1 text-2xl font-bold text-rose-600">{{ $counts['ditolak'] }}</p>
+            <p class="mt-1 text-2xl font-bold text-rose-600">{{ $counts['ditolak'] ?? 0 }}</p>
         </div>
     </div>
 
