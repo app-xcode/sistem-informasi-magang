@@ -26,8 +26,12 @@ class DashboardController extends Controller
             'magangSelesai' => Magang::where('status_pengajuan', 'disetujui')
                 ->where('status_magang', 'selesai')
                 ->count(),
-            'logbookMenunggu' => LogKegiatan::where('status_validasi', 'menunggu')->count(),
-            'laporanMenunggu' => Laporan::where('status', 'belum_validasi')->count(),
+            'logbookMenunggu' => LogKegiatan::where('status_validasi', 'menunggu')
+                ->whereHas('magang', fn ($query) => $query->where('status_pengajuan', 'disetujui'))
+                ->count(),
+            'laporanMenunggu' => Laporan::where('status', 'belum_validasi')
+                ->whereHas('magang', fn ($query) => $query->where('status_pengajuan', 'disetujui'))
+                ->count(),
         ];
 
         $pengajuanStatus = [
@@ -59,6 +63,7 @@ class DashboardController extends Controller
 
         LogKegiatan::query()
             ->with('magang.mahasiswa')
+            ->whereHas('magang', fn ($query) => $query->where('status_pengajuan', 'disetujui'))
             ->latest('updated_at')
             ->limit(5)
             ->get()
@@ -72,6 +77,7 @@ class DashboardController extends Controller
 
         Laporan::query()
             ->with('magang.mahasiswa')
+            ->whereHas('magang', fn ($query) => $query->where('status_pengajuan', 'disetujui'))
             ->latest('updated_at')
             ->limit(5)
             ->get()
