@@ -36,7 +36,7 @@
                             <td class="px-4 py-3 text-slate-600">{{ $magang->instansi?->nama_instansi ?? '-' }}</td>
                             <td class="px-4 py-3"><x-badge :status="$magang->status_magang" /></td>
                             <td class="px-4 py-3 text-slate-600">{{ $magang->status_magang === 'selesai' ? '100%' : ($magang->status_magang === 'berlangsung' ? '50%' : '0%') }}</td>
-                            <td class="px-4 py-3"><x-button href="#" variant="secondary">Detail</x-button></td>
+                            <td class="px-4 py-3"><x-button :href="route('dosen.mahasiswa-bimbingan.show', $magang)" variant="secondary">Detail</x-button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -57,7 +57,7 @@
                             <p class="font-semibold text-slate-950">{{ $logbook->judul_kegiatan }}</p>
                             <p class="text-sm text-slate-500">{{ $logbook->magang?->mahasiswa?->nama ?? '-' }} - {{ $logbook->tanggal?->format('d M Y') }}</p>
                         </div>
-                        <x-badge :status="$logbook->status_validasi" />
+                        <a href="{{ route('dosen.logbook') }}" class="inline-flex"><x-badge :status="$logbook->status_validasi" /></a>
                     </div>
                 @endforeach
             </div>
