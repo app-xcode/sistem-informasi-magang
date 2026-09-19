@@ -7,6 +7,7 @@ use App\Http\Requests\Mahasiswa\LogbookRequest;
 use App\Models\LogKegiatan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class LogbookController extends Controller
@@ -84,11 +85,13 @@ class LogbookController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('bukti_kegiatan')) {
+            $newPath = $request->file('bukti_kegiatan')->store('logbook', 'public');
+
             if ($logbook->bukti_kegiatan) {
                 Storage::disk('public')->delete($logbook->bukti_kegiatan);
             }
 
-            $data['bukti_kegiatan'] = $request->file('bukti_kegiatan')->store('logbook', 'public');
+            $data['bukti_kegiatan'] = $newPath;
         } else {
             $data['bukti_kegiatan'] = $logbook->bukti_kegiatan;
         }
@@ -134,15 +137,15 @@ class LogbookController extends Controller
     private function validateTanggal(LogbookRequest $request, $magang): void
     {
         if ($magang->tanggal_mulai && $request->date('tanggal')->lt($magang->tanggal_mulai)) {
-            abort(
-                back()->withErrors(['tanggal' => 'Tanggal kegiatan tidak boleh sebelum tanggal mulai magang.'])->withInput()
-            );
+            throw ValidationException::withMessages([
+                'tanggal' => 'Tanggal kegiatan tidak boleh sebelum tanggal mulai magang.',
+            ]);
         }
 
         if ($magang->tanggal_selesai && $request->date('tanggal')->gt($magang->tanggal_selesai)) {
-            abort(
-                back()->withErrors(['tanggal' => 'Tanggal kegiatan tidak boleh setelah tanggal selesai magang.'])->withInput()
-            );
+            throw ValidationException::withMessages([
+                'tanggal' => 'Tanggal kegiatan tidak boleh setelah tanggal selesai magang.',
+            ]);
         }
     }
 }
