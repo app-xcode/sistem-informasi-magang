@@ -18,11 +18,11 @@ class MonitoringController extends Controller
 
         [$query, $sort, $direction, $perPage] = DataTable::sort(
             $this->query($search, $status), $request,
-            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'perusahaan' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'tanggal_mulai' => 'tanggal_mulai', 'tanggal_selesai' => 'tanggal_selesai', 'status_magang' => 'status_magang', 'created_at' => 'created_at'], 'created_at'
+            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'instansi' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'tanggal_mulai' => 'tanggal_mulai', 'tanggal_selesai' => 'tanggal_selesai', 'status_magang' => 'status_magang', 'created_at' => 'created_at'], 'created_at'
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('monitoring-magang', ['Mahasiswa', 'NIM', 'Dosen', 'Perusahaan', 'Mulai', 'Selesai', 'Status', 'Logbook'], $query->lazy(500)->map(
+            return ExcelXmlExporter::download('monitoring-magang', ['Mahasiswa', 'NIM', 'Dosen', 'Instansi', 'Mulai', 'Selesai', 'Status', 'Logbook'], $query->lazy(500)->map(
                 fn ($item) => [$item->mahasiswa?->nama ?? '-', $item->mahasiswa?->nim ?? '-', $item->dosen?->nama ?? '-', $item->instansi?->nama_instansi ?? '-', $item->tanggal_mulai?->format('d M Y') ?? '-', $item->tanggal_selesai?->format('d M Y') ?? '-', $item->status_magang, $item->log_kegiatan_count]
             ));
         }
