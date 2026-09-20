@@ -9,7 +9,7 @@
 
     <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
         <form method="GET" action="{{ route('dosen.mahasiswa-bimbingan') }}" class="flex flex-col gap-3 lg:flex-row">
-            <input name="q" value="{{ $search }}" type="search" placeholder="Cari nama, NIM, atau perusahaan..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
+            <input name="q" value="{{ $search }}" type="search" placeholder="Cari nama, NIM, atau instansi..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
             <select name="status" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm">
                 <option value="">Semua Status</option>
                 <option value="belum_mulai" @selected($status==='belum_mulai')>Belum Mulai</option>
@@ -31,7 +31,7 @@
             <table class="min-w-full divide-y divide-slate-200 text-sm">
                 <thead><tr>
                     <th class="px-5 py-3 text-left"><x-table-sort column="mahasiswa" label="Mahasiswa" /></th>
-                    <th class="px-5 py-3 text-left"><x-table-sort column="perusahaan" label="Perusahaan" /></th>
+                    <th class="px-5 py-3 text-left"><x-table-sort column="instansi" label="Instansi" /></th>
                     <th class="px-5 py-3 text-left"><x-table-sort column="tanggal_mulai" label="Mulai" /></th>
                     <th class="px-5 py-3 text-left"><x-table-sort column="tanggal_selesai" label="Selesai" /></th>
                     <th class="px-5 py-3 text-left"><x-table-sort column="status_magang" label="Status" /></th>
