@@ -8,7 +8,7 @@
     </div>
     <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
         <form method="GET" action="{{ route('admin.pengajuan.index') }}" class="flex flex-col gap-3 lg:flex-row">
-            <input name="q" value="{{ $search }}" type="search" placeholder="Cari mahasiswa, NIM, judul, dosen, atau perusahaan..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
+            <input name="q" value="{{ $search }}" type="search" placeholder="Cari mahasiswa, NIM, judul, dosen, atau instansi..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
             <select name="status" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700"><option value="">Semua Status</option><option value="diajukan" @selected($status === 'diajukan')>Diajukan</option><option value="disetujui" @selected($status === 'disetujui')>Disetujui</option><option value="ditolak" @selected($status === 'ditolak')>Ditolak</option></select>
             <select name="per_page" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-slate-700">@foreach([10,25,50,100] as $size)<option value="{{ $size }}" @selected($perPage === $size)>{{ $size }} / halaman</option>@endforeach</select>
             <button type="submit" class="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white">Filter</button>
@@ -22,7 +22,7 @@
             <th class="px-5 py-3 text-left"><x-table-sort column="mahasiswa" label="Mahasiswa" /></th>
             <th class="px-5 py-3 text-left"><x-table-sort column="judul_magang" label="Judul Magang" /></th>
             <th class="px-5 py-3 text-left"><x-table-sort column="dosen" label="Pembimbing" /></th>
-            <th class="px-5 py-3 text-left"><x-table-sort column="perusahaan" label="Perusahaan" /></th>
+            <th class="px-5 py-3 text-left"><x-table-sort column="instansi" label="Instansi" /></th>
             <th class="px-5 py-3 text-left"><x-table-sort column="status_pengajuan" label="Status" /></th>
             <th class="px-5 py-3 text-left font-semibold text-white">Aksi</th>
         </tr></thead><tbody class="divide-y divide-slate-100">
