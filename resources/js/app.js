@@ -86,3 +86,59 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('gap-1.5');
     });
 });
+
+    const previewModal = document.getElementById('file-preview-modal');
+    const previewContent = document.getElementById('file-preview-content');
+    const previewName = document.getElementById('file-preview-name');
+
+    const closeFilePreview = () => {
+        if (!previewModal) return;
+        previewModal.classList.add('hidden');
+        previewModal.classList.remove('flex');
+        previewContent.innerHTML = '';
+        document.body.classList.remove('overflow-hidden');
+    };
+
+    const openFilePreview = (url, type, name) => {
+        if (!previewModal || !previewContent) return;
+
+        previewName.textContent = name || '';
+        previewContent.innerHTML = '';
+
+        if (type === 'image') {
+            const image = document.createElement('img');
+            image.src = url;
+            image.alt = name || 'Preview bukti';
+            image.className = 'mx-auto h-full max-h-full max-w-full object-contain rounded-lg';
+            previewContent.appendChild(image);
+        } else {
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.title = name || 'Preview PDF';
+            iframe.className = 'h-full w-full rounded-lg border border-slate-200 bg-white';
+            previewContent.appendChild(iframe);
+        }
+
+        previewModal.classList.remove('hidden');
+        previewModal.classList.add('flex');
+        document.body.classList.add('overflow-hidden');
+    };
+
+    document.querySelectorAll('[data-file-preview]').forEach((trigger) => {
+        trigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            openFilePreview(trigger.dataset.previewUrl, trigger.dataset.previewType, trigger.dataset.previewName);
+        });
+    });
+
+    document.querySelectorAll('[data-close-file-preview]').forEach((button) => {
+        button.addEventListener('click', closeFilePreview);
+    });
+
+    previewModal?.addEventListener('click', (event) => {
+        if (event.target === previewModal) closeFilePreview();
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeFilePreview();
+    });
