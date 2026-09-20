@@ -32,7 +32,75 @@
                 <td class="px-5 py-4"><div class="font-semibold text-slate-900">{{ $item->mahasiswa?->nama ?? '-' }}</div><div class="text-xs text-slate-500">{{ $item->mahasiswa?->nim ?? '-' }}</div></td>
                 <td class="max-w-xs px-5 py-4 text-slate-700">{{ $item->judul_magang }}</td><td class="px-5 py-4 text-slate-600">{{ $item->dosen?->nama ?? '-' }}</td><td class="px-5 py-4 text-slate-600">{{ $item->instansi?->nama_instansi ?? '-' }}</td>
                 <td class="px-5 py-4"><span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ $statusClass }}">{{ ucfirst($item->status_pengajuan) }}</span></td>
-                <td class="whitespace-nowrap px-5 py-4"><div class="flex items-center gap-2"><a href="{{ route('admin.pengajuan.edit',$item) }}" class="rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700">Edit</a><form method="POST" action="{{ route('admin.pengajuan.destroy',$item) }}" onsubmit="return confirm('Hapus pengajuan ini?')">@csrf @method('DELETE')<button class="rounded-lg border border-rose-200 px-3 py-1.5 text-xs font-semibold text-rose-700">Hapus</button></form></div></td>
+                <td class="whitespace-nowrap px-5 py-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                        @if($item->status_pengajuan === 'diajukan')
+                            <form method="POST" action="{{ route('admin.pengajuan.review',$item) }}">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status_pengajuan" value="disetujui">
+                                <button type="submit" class="inline-flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100">
+                                    <i class="fa-solid fa-check w-3.5 text-center" aria-hidden="true"></i>
+                                    Setujui
+                                </button>
+                            </form>
+
+                            <button type="button"
+                                data-reject-modal="reject-modal-{{ $item->id }}"
+                                class="inline-flex items-center gap-1.5 rounded-lg border border-rose-200 bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100">
+                                <i class="fa-solid fa-xmark w-3.5 text-center" aria-hidden="true"></i>
+                                Tolak
+                            </button>
+
+                            <dialog id="reject-modal-{{ $item->id }}" class="w-[calc(100%-2rem)] max-w-lg rounded-xl border border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/40">
+                                <form method="POST" action="{{ route('admin.pengajuan.review',$item) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="status_pengajuan" value="ditolak">
+                                    <div class="border-b border-slate-200 px-6 py-4">
+                                        <div class="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h2 class="text-lg font-bold text-slate-950">Tolak Pengajuan Magang</h2>
+                                                <p class="mt-1 text-sm text-slate-500">{{ $item->mahasiswa?->nama ?? '-' }} · {{ $item->instansi?->nama_instansi ?? '-' }}</p>
+                                            </div>
+                                            <button type="button" data-close-modal class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900" aria-label="Tutup">
+                                                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="px-6 py-5">
+                                        <label for="alasan-{{ $item->id }}" class="mb-1.5 block text-sm font-semibold text-slate-700">
+                                            Alasan Penolakan <span class="text-rose-500">*</span>
+                                        </label>
+                                        <textarea id="alasan-{{ $item->id }}" name="alasan_penolakan" rows="5" required maxlength="1000"
+                                            placeholder="Masukkan alasan penolakan..."
+                                            class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"></textarea>
+                                        <p class="mt-1.5 text-xs text-slate-500">Alasan ini akan ditampilkan kepada mahasiswa.</p>
+                                    </div>
+                                    <div class="flex flex-col-reverse gap-2 border-t border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:justify-end">
+                                        <button type="button" data-close-modal class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Batal</button>
+                                        <button type="submit" class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">
+                                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                            Tolak Pengajuan
+                                        </button>
+                                    </div>
+                                </form>
+                            </dialog>
+                        @endif
+
+                        <a href="{{ route('admin.pengajuan.edit',$item) }}" class="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700">
+                            <i class="fa-solid fa-pen w-3.5 text-center" aria-hidden="true"></i>
+                            Edit
+                        </a>
+                        <form method="POST" action="{{ route('admin.pengajuan.destroy',$item) }}" onsubmit="return confirm('Hapus pengajuan ini?')">
+                            @csrf @method('DELETE')
+                            <button class="inline-flex items-center gap-1.5 rounded-lg border border-rose-200 px-3 py-1.5 text-xs font-semibold text-rose-700">
+                                <i class="fa-solid fa-trash w-3.5 text-center" aria-hidden="true"></i>
+                                Hapus
+                            </button>
+                        </form>
+                    </div>
+                </td>
             </tr>
         @empty<tr><td colspan="6" class="px-5 py-12 text-center text-sm text-slate-500">Belum ada pengajuan magang.</td></tr>@endforelse
         </tbody></table></div>
@@ -40,3 +108,29 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-reject-modal]').forEach((button) => {
+        const modal = document.getElementById(button.dataset.rejectModal);
+        if (!modal) return;
+
+        button.addEventListener('click', () => {
+            if (typeof modal.showModal === 'function') {
+                modal.showModal();
+            } else {
+                modal.setAttribute('open', '');
+            }
+        });
+
+        modal.querySelectorAll('[data-close-modal]').forEach((closeButton) => {
+            closeButton.addEventListener('click', () => modal.close());
+        });
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) modal.close();
+        });
+    });
+});
+</script>
+@endpush

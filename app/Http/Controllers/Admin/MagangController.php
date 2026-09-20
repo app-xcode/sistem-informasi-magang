@@ -49,6 +49,37 @@ class MagangController extends Controller
             ->when($status, fn ($query, $status) => $query->where('status_pengajuan', $status));
     }
 
+    public function review(Request $request, Magang $pengajuan): RedirectResponse
+    {
+        $validated = $request->validate([
+            'status_pengajuan' => ['required', 'in:disetujui,ditolak'],
+            'alasan_penolakan' => ['nullable', 'required_if:status_pengajuan,ditolak', 'string', 'max:1000'],
+        ], [
+            'alasan_penolakan.required_if' => 'Alasan penolakan wajib diisi.',
+        ]);
+
+        if ($pengajuan->status_pengajuan !== 'diajukan') {
+            return back()->with('error', 'Pengajuan ini sudah diproses dan tidak dapat diubah dari aksi ini.');
+        }
+
+        $pengajuan->update([
+            'status_pengajuan' => $validated['status_pengajuan'],
+            'alasan_penolakan' => $validated['status_pengajuan'] === 'ditolak'
+                ? $validated['alasan_penolakan']
+                : null,
+            'status_magang' => $validated['status_pengajuan'] === 'disetujui'
+                ? 'belum_mulai'
+                : $pengajuan->status_magang,
+        ]);
+
+        return redirect()->route('admin.pengajuan.index')->with(
+            'success',
+            $validated['status_pengajuan'] === 'disetujui'
+                ? 'Pengajuan magang berhasil disetujui.'
+                : 'Pengajuan magang berhasil ditolak.'
+        );
+    }
+
     public function create(): View
     {
         return view('admin.pengajuan.create', [
