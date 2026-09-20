@@ -43,7 +43,7 @@
 <aside class="fixed inset-y-0 left-0 z-40 flex w-72 -translate-x-full flex-col border-r border-slate-200 bg-white transition-transform duration-200 peer-checked:translate-x-0 lg:sticky lg:translate-x-0">
     <div class="flex h-20 items-center gap-3 border-b border-slate-200 px-5">
         <a href="{{ $role ? route($role.'.dashboard') : '#' }}" class="flex min-w-0 items-center gap-3">
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-sm font-bold text-white shadow-sm"><i class="fa-solid fa-briefcase" aria-hidden="true"></i></span>
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-sm font-bold text-white shadow-sm"><i class="fa-solid fa-book-bookmark" aria-hidden="true"></i></span>
             <span class="min-w-0">
                 <span class="block truncate text-sm font-bold text-slate-950">SIM Magang</span>
                 <span class="block truncate text-xs text-slate-500">Sistem Informasi Magang</span>
