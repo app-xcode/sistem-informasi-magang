@@ -230,9 +230,9 @@ class NotificationService
             'total' => $items->count(),
             'counts' => [
                 'pengajuan' => $magang && $magang->status_pengajuan === 'diajukan' ? 0 : ($magang ? 0 : 1),
-                'status' => $items->filter(fn ($item) => in_array($item['icon'], ['fa-circle-check', 'fa-circle-xmark', 'fa-briefcase'], true))->count(),
-                'logbook' => $items->filter(fn ($item) => in_array($item['icon'], ['fa-book-open', 'fa-circle-check', 'fa-circle-xmark'], true))->count(),
-                'laporan' => $items->filter(fn ($item) => in_array($item['icon'], ['fa-file-circle-plus', 'fa-circle-check', 'fa-circle-xmark'], true))->count(),
+                'status' => $items->filter(fn ($item) => str_contains($item['title'], 'Pengajuan') || str_contains($item['title'], 'Status magang'))->count(),
+                'logbook' => $items->filter(fn ($item) => str_contains($item['title'], 'Logbook'))->count(),
+                'laporan' => $items->filter(fn ($item) => str_contains($item['title'], 'Laporan'))->count(),
                 'total' => $items->count(),
             ],
         ];
