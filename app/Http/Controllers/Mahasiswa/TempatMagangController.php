@@ -31,7 +31,7 @@ class TempatMagangController extends Controller
 
         if ($request->query('export') === 'excel') {
             return ExcelXmlExporter::download('tempat-magang', [
-                'Nama Perusahaan', 'Alamat', 'Telepon', 'Penanggung Jawab',
+                'Nama Instansi', 'Alamat', 'Telepon', 'Penanggung Jawab',
             ], $query->lazy(500)->map(fn ($item) => [
                 $item->nama_instansi,
                 $item->alamat ?? '-',
