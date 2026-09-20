@@ -8,6 +8,29 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+/* Prevent horizontal overflow on mobile Safari */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body > div {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+main,
+main > div,
+main > div > div,
+main section,
+main article {
+    min-width: 0;
+    max-width: 100%;
+}
+
 /* Table header styling */
 table thead {
     background-color: #1e293b !important;
@@ -58,10 +81,12 @@ textarea {
 .select-wrapper {
     position: relative;
     width: 100%;
+    min-width: 0;
 }
 
 .select-wrapper select {
     width: 100%;
+    min-width: 0;
     -webkit-appearance: none !important;
     appearance: none !important;
     background-color: #ffffff;
@@ -97,4 +122,13 @@ textarea {
     pointer-events: none;
     color: #64748b;
     font-size: 0.75rem;
+}
+
+/* Keep dashboard cards inside the mobile viewport */
+.rounded-xl {
+    min-width: 0;
+}
+
+canvas {
+    max-width: 100% !important;
 }
