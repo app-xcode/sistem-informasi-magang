@@ -20,11 +20,11 @@ class DataMagangController extends Controller
 
         [$query, $sort, $direction, $perPage] = DataTable::sort(
             $this->query($search, $status), $request,
-            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'judul_magang' => 'judul_magang', 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'perusahaan' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'status_magang' => 'status_magang', 'created_at' => 'created_at'], 'created_at'
+            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'judul_magang' => 'judul_magang', 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'instansi' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'status_magang' => 'status_magang', 'created_at' => 'created_at'], 'created_at'
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('data-magang', ['Mahasiswa', 'NIM', 'Judul Magang', 'Dosen', 'Perusahaan', 'Status Magang'], $query->lazy(500)->map(
+            return ExcelXmlExporter::download('data-magang', ['Mahasiswa', 'NIM', 'Judul Magang', 'Dosen', 'Instansi', 'Status Magang], $query->lazy(500)->map(
                 fn ($item) => [$item->mahasiswa?->nama ?? '-', $item->mahasiswa?->nim ?? '-', $item->judul_magang ?: '-', $item->dosen?->nama ?? '-', $item->instansi?->nama_instansi ?? '-', $item->status_magang]
             ));
         }
