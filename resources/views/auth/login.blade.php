@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Sistem Informasi Magang</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">\n</head>
 
 <body class="min-h-screen bg-slate-400 flex items-center justify-center p-4">
 
@@ -185,9 +185,12 @@
                     </button>
                 </form>
 
-                <p class="mt-8 text-center text-xs text-slate-400">
-                    Sistem Informasi Magang
-                </p>
+                <div class="mt-8 text-center">
+                    <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 transition hover:text-slate-900">
+                        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                        Kembali ke Home
+                    </a>
+                </div>
 
             </div>
         </div>
