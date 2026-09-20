@@ -158,29 +158,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 @endsection
-{{--
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-reject-modal]').forEach((button) => {
-        const modal = document.getElementById(button.dataset.rejectModal);
-        if (!modal) return;
-
-        button.addEventListener('click', () => {
-            if (typeof modal.showModal === 'function') {
-                modal.showModal();
-            } else {
-                modal.setAttribute('open', '');
-            }
-        });
-
-        modal.querySelectorAll('[data-close-modal]').forEach((closeButton) => {
-            closeButton.addEventListener('click', () => modal.close());
-        });
-
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) modal.close();
-        });
-    });
-});
-</script>
---}}
