@@ -13,7 +13,7 @@
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <x-card title="Mahasiswa" :value="$stats['totalMahasiswa']" icon="fa-users" icon-class="bg-slate-100 text-slate-700" />
         <x-card title="Dosen" :value="$stats['totalDosen']" icon="fa-user-tie" icon-class="bg-sky-50 text-sky-700" />
-        <x-card title="Perusahaan" :value="$stats['totalPerusahaan']" icon="fa-building" icon-class="bg-indigo-50 text-indigo-700" />
+        <x-card title="Instansi" :value="$stats['totalInstansi']" icon="fa-building" icon-class="bg-indigo-50 text-indigo-700" />
         <x-card title="Pengajuan Menunggu" :value="$stats['pengajuanMenunggu']" icon="fa-file-circle-exclamation" icon-class="bg-amber-50 text-amber-700" />
         <x-card title="Sedang Magang" :value="$stats['mahasiswaSedangMagang']" icon="fa-briefcase" icon-class="bg-sky-50 text-sky-700" />
         <x-card title="Magang Selesai" :value="$stats['magangSelesai']" icon="fa-circle-check" icon-class="bg-emerald-50 text-emerald-700" />
@@ -129,7 +129,7 @@
                 <thead>
                     <tr>
                         <th class="px-5 py-3 text-left font-semibold">Mahasiswa</th>
-                        <th class="px-5 py-3 text-left font-semibold">Perusahaan</th>
+                        <th class="px-5 py-3 text-left font-semibold">Instansi</th>
                         <th class="px-5 py-3 text-left font-semibold">Tanggal</th>
                         <th class="px-5 py-3 text-left font-semibold">Status</th>
                         <th class="px-5 py-3 text-left font-semibold">Aksi</th>
