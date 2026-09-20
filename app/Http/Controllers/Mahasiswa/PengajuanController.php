@@ -35,7 +35,7 @@ class PengajuanController extends Controller
         [$query, $sort, $direction, $perPage] = DataTable::sort($query, $request, [
             'tanggal_pengajuan' => 'tanggal_pengajuan',
             'judul_magang' => 'judul_magang',
-            'perusahaan' => fn ($q, $dir) => $q->orderBy(
+            'instansi' => fn ($q, $dir) => $q->orderBy(
                 Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'),
                 $dir
             ),
@@ -48,7 +48,7 @@ class PengajuanController extends Controller
 
         if ($request->query('export') === 'excel') {
             return ExcelXmlExporter::download('pengajuan-magang-mahasiswa', [
-                'Tanggal Pengajuan', 'Judul Magang', 'Perusahaan', 'Pembimbing', 'Status', 'Alasan Penolakan',
+                'Tanggal Pengajuan', 'Judul Magang', 'Instansi', 'Pembimbing', 'Status', 'Alasan Penolakan',
             ], $query->lazy(500)->map(fn ($item) => [
                 $item->tanggal_pengajuan?->format('d M Y') ?? '-',
                 $item->judul_magang ?? '-',
