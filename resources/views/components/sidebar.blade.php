@@ -1,5 +1,6 @@
 @php
     $role = auth()->user()->role ?? null;
+    $notifications = app(\App\Services\NotificationService::class)->forUser(auth()->user());
     $menus = [
         'admin' => [
             ['label' => 'Dashboard', 'icon' => 'fa-house', 'href' => route('admin.dashboard'), 'active' => request()->routeIs('admin.dashboard')],
@@ -58,7 +59,23 @@
             @foreach ($menus[$role] ?? [] as $menu)
                 <a href="{{ $menu['href'] }}" class="group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition {{ $menu['active'] ? 'bg-slate-900 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }}">
                     <i class="fa-solid {{ $menu['icon'] }} mr-3 w-4 text-center" aria-hidden="true"></i>
-                    {{ $menu['label'] }}
+                    <span class="min-w-0 flex-1 truncate">{{ $menu['label'] }}</span>
+                    @php
+                        $badge = match ([$role, $menu['label']]) {
+                            ['admin', 'Pengajuan Magang'] => $notifications['counts']['pengajuan'] ?? 0,
+                            ['dosen', 'Logbook'] => $notifications['counts']['logbook'] ?? 0,
+                            ['dosen', 'Laporan'] => $notifications['counts']['laporan'] ?? 0,
+                            ['dosen', 'Penilaian'] => $notifications['counts']['penilaian'] ?? 0,
+                            ['mahasiswa', 'Pengajuan Magang'] => $notifications['counts']['pengajuan'] ?? 0,
+                            ['mahasiswa', 'Status Magang'] => $notifications['counts']['status'] ?? 0,
+                            ['mahasiswa', 'Logbook'] => $notifications['counts']['logbook'] ?? 0,
+                            ['mahasiswa', 'Laporan Magang'] => $notifications['counts']['laporan'] ?? 0,
+                            default => 0,
+                        };
+                    @endphp
+                    @if($badge > 0)
+                        <span class="ml-2 inline-flex min-w-5 items-center justify-center rounded-full bg-rose-500 px-1.5 py-0.5 text-[10px] font-bold leading-none text-white">{{ min($badge, 99) }}</span>
+                    @endif
                 </a>
             @endforeach
         </div>
