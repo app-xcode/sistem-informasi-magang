@@ -19,11 +19,11 @@ class LaporanController extends Controller
 
         [$query, $sort, $direction, $perPage] = DataTable::sort(
             $this->query($search, $status), $request,
-            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'perusahaan' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'nama_file' => 'nama_file', 'tanggal_upload' => 'tanggal_upload', 'status' => 'status'], 'tanggal_upload'
+            ['mahasiswa' => fn ($q, $dir) => $q->orderBy(\App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'), $dir), 'instansi' => fn ($q, $dir) => $q->orderBy(\App\Models\Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'), $dir), 'dosen' => fn ($q, $dir) => $q->orderBy(\App\Models\Dosen::select('nama')->whereColumn('dosen.id', 'magang.dosen_id'), $dir), 'nama_file' => 'nama_file', 'tanggal_upload' => 'tanggal_upload', 'status' => 'status'], 'tanggal_upload'
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('laporan-magang', ['Mahasiswa', 'NIM', 'Perusahaan', 'Dosen', 'File Laporan', 'Tanggal Upload', 'Status'], $query->lazy(500)->map(
+            return ExcelXmlExporter::download('laporan-magang', ['Mahasiswa', 'NIM', 'Instansi', 'Dosen', 'File Laporan', 'Tanggal Upload', 'Status'], $query->lazy(500)->map(
                 fn ($item) => [$item->magang?->mahasiswa?->nama ?? '-', $item->magang?->mahasiswa?->nim ?? '-', $item->magang?->instansi?->nama_instansi ?? '-', $item->magang?->dosen?->nama ?? '-', $item->nama_file, $item->tanggal_upload?->format('d M Y H:i') ?? '-', $item->status]
             ));
         }
