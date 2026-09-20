@@ -22,13 +22,13 @@ class InstansiController extends Controller
         );
 
         if ($request->string('export')->toString() === 'excel') {
-            return ExcelXmlExporter::download('data-perusahaan', ['Perusahaan', 'Alamat', 'Telepon', 'Email', 'Penanggung Jawab'], $query->lazy(500)->map(
+            return ExcelXmlExporter::download('data-instansi', ['Instansi', 'Alamat', 'Telepon', 'Email', 'Penanggung Jawab'], $query->lazy(500)->map(
                 fn ($item) => [$item->nama_instansi, $item->alamat, $item->no_telp ?: '-', $item->email ?: '-', $item->penanggung_jawab ?: '-']
             ));
         }
 
         $instansi = $query->paginate($perPage)->withQueryString();
-        return view('admin.perusahaan.index', compact('instansi', 'search', 'sort', 'direction', 'perPage'));
+        return view('admin.instansi.index', compact('instansi', 'search', 'sort', 'direction', 'perPage'));
     }
 
     private function query(?string $search)
@@ -44,22 +44,22 @@ class InstansiController extends Controller
         });
     }
 
-    public function create(): View { return view('admin.perusahaan.create'); }
+    public function create(): View { return view('admin.instansi.create'); }
     public function store(InstansiRequest $request): RedirectResponse
     {
         Instansi::create($request->validated());
-        return redirect()->route('admin.perusahaan.index')->with('success', 'Data perusahaan berhasil ditambahkan.');
+        return redirect()->route('admin.instansi.index')->with('success', 'Data instansi berhasil ditambahkan.');
     }
-    public function edit(Instansi $perusahaan): View { return view('admin.perusahaan.edit', compact('perusahaan')); }
-    public function update(InstansiRequest $request, Instansi $perusahaan): RedirectResponse
+    public function edit(Instansi $instansi): View { return view('admin.instansi.edit', compact('perusahaan')); }
+    public function update(InstansiRequest $request, Instansi $instansi): RedirectResponse
     {
-        $perusahaan->update($request->validated());
-        return redirect()->route('admin.perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
+        $instansi->update($request->validated());
+        return redirect()->route('admin.instansi.index')->with('success', 'Data instansi berhasil diperbarui.');
     }
-    public function destroy(Instansi $perusahaan): RedirectResponse
+    public function destroy(Instansi $instansi): RedirectResponse
     {
-        if ($perusahaan->magang()->exists()) return back()->with('error', 'Perusahaan tidak dapat dihapus karena sudah memiliki data magang.');
-        $perusahaan->delete();
-        return redirect()->route('admin.perusahaan.index')->with('success', 'Data perusahaan berhasil dihapus.');
+        if ($instansi->magang()->exists()) return back()->with('error', 'Instansi tidak dapat dihapus karena sudah memiliki data magang.');
+        $instansi->delete();
+        return redirect()->route('admin.instansi.index')->with('success', 'Data instansi berhasil dihapus.');
     }
 }
