@@ -39,7 +39,7 @@
                 @if($logbook->bukti_kegiatan)
                     <div class="mb-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
                         <p class="text-xs text-slate-500">Bukti saat ini</p>
-                        <a href="{{ asset('storage/'.$logbook->bukti_kegiatan) }}" target="_blank" class="mt-1 inline-block text-sm font-semibold text-slate-700 underline">Lihat bukti kegiatan</a>
+                        <a href="{{ route('mahasiswa.logbook.bukti', $logbook) }}" data-file-preview data-preview-url="{{ route('mahasiswa.logbook.bukti', $logbook) }}" data-preview-type="{{ in_array(strtolower(pathinfo($logbook->bukti_kegiatan, PATHINFO_EXTENSION)), ['jpg','jpeg','png','webp','gif']) ? 'image' : 'pdf' }}" data-preview-name="{{ $logbook->judul_kegiatan }}" class="mt-1 inline-flex items-center gap-2 text-sm font-semibold text-slate-700 underline"><i class="fa-solid fa-eye"></i>Lihat bukti kegiatan</a>
                     </div>
                 @endif
                 <input id="bukti_kegiatan" type="file" name="bukti_kegiatan" accept=".jpg,.jpeg,.png,.pdf" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm">
