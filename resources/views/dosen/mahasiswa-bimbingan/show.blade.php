@@ -16,7 +16,7 @@
 
         <div class="grid gap-5 p-6 sm:grid-cols-2 lg:grid-cols-4">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Perusahaan</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Instansi</p>
                 <p class="mt-1 font-semibold text-slate-900">{{ $magang->instansi?->nama_instansi }}</p>
             </div>
             <div>
