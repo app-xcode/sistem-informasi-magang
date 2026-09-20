@@ -2,9 +2,9 @@
 @section('title','Tempat Magang')
 @section('content')
 <div class="space-y-6">
-    <div><h1 class="text-2xl font-bold">Tempat Magang</h1><p class="mt-1 text-sm text-slate-500">Cari informasi perusahaan yang tersedia untuk pengajuan magang.</p></div>
+    <div><h1 class="text-2xl font-bold">Tempat Magang</h1><p class="mt-1 text-sm text-slate-500">Cari informasi instansi yang tersedia untuk pengajuan magang.</p></div>
     <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"><form method="GET" action="{{ route('mahasiswa.tempat-magang') }}" class="flex flex-col gap-3 lg:flex-row">
-        <input name="q" value="{{ $search }}" placeholder="Cari perusahaan, alamat, penanggung jawab..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm">
+        <input name="q" value="{{ $search }}" placeholder="Cari instansi, alamat, penanggung jawab..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm">
         <select name="sort" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm"><option value="nama_instansi" @selected($sort==='nama_instansi')>Nama</option><option value="alamat" @selected($sort==='alamat')>Alamat</option><option value="penanggung_jawab" @selected($sort==='penanggung_jawab')>Penanggung Jawab</option><option value="no_telp" @selected($sort==='no_telp')>Telepon</option></select>
         <select name="direction" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm"><option value="asc" @selected($direction==='asc')>A–Z / Naik</option><option value="desc" @selected($direction==='desc')>Z–A / Turun</option></select>
         <select name="per_page" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm">@foreach([10,25,50,100] as $size)<option value="{{ $size }}" @selected($perPage===$size)>{{ $size }} / halaman</option>@endforeach</select>
