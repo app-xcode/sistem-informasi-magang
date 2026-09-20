@@ -54,7 +54,7 @@
                             <p class="font-semibold text-slate-900">{{ $item->judul_kegiatan }}</p>
                             <p class="mt-1 whitespace-pre-line text-slate-600">{{ $item->deskripsi }}</p>
                             @if($item->bukti_kegiatan)
-                                <a href="{{ route('dosen.logbook.bukti', $item) }}" target="_blank" class="mt-2 inline-block text-xs font-semibold text-slate-700 underline">Lihat bukti</a>
+                                <a href="{{ route('dosen.logbook.bukti', $item) }}" data-file-preview data-preview-url="{{ route('dosen.logbook.bukti', $item) }}" data-preview-type="{{ in_array(strtolower(pathinfo($item->bukti_kegiatan, PATHINFO_EXTENSION)), ['jpg','jpeg','png','webp','gif']) ? 'image' : 'pdf' }}" data-preview-name="{{ $item->judul_kegiatan }}" class="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-slate-700 underline"><i class="fa-solid fa-eye"></i>Lihat bukti</a>
                             @endif
                         </td>
                         <td class="px-5 py-4"><span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ $class }}">{{ ucfirst($item->status_validasi) }}</span></td>
