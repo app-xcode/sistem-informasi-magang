@@ -18,3 +18,32 @@ table thead th {
     background-color: #1e293b !important;
     color: #ffffff !important;
 }
+
+
+/* Responsive table actions */
+.table-action-cell {
+    white-space: nowrap !important;
+}
+
+.table-action {
+    white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+    .table-action {
+        width: 2.25rem;
+        min-width: 2.25rem;
+        height: 2.25rem;
+        justify-content: center;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .table-action .table-action-label {
+        display: none;
+    }
+
+    .table-action i {
+        margin-right: 0 !important;
+    }
+}
