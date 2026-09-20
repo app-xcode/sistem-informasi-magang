@@ -73,7 +73,13 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-3"><x-button :href="route('dosen.mahasiswa-bimbingan.show', $magang)" variant="secondary">Detail</x-button></td>
+                            <td class="px-4 py-3">
+                                @if ($magang->status_magang !== 'belum_mulai')
+                                    <x-button :href="route('dosen.mahasiswa-bimbingan.show', $magang)" variant="secondary">Detail</x-button>
+                                @else
+                                    <span class="text-xs font-medium text-slate-400">Belum tersedia</span>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
