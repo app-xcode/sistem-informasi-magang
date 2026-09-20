@@ -105,17 +105,33 @@ document.addEventListener('DOMContentLoaded', () => {
         previewName.textContent = name || '';
         previewContent.innerHTML = '';
 
+        const showFileNotFound = () => {
+            previewContent.innerHTML = '<div class="flex h-full items-center justify-center"><div class="text-center"><i class="fa-solid fa-file-circle-xmark text-3xl text-slate-400"></i><p class="mt-3 text-sm font-semibold text-slate-700">File tidak ditemukan</p><p class="mt-1 text-xs text-slate-500">Bukti tidak tersedia atau sudah tidak dapat diakses.</p></div></div>';
+        };
+
         if (type === 'image') {
             const image = document.createElement('img');
             image.src = url;
             image.alt = name || 'Preview bukti';
             image.className = 'mx-auto h-full max-h-full max-w-full object-contain rounded-lg';
+            image.addEventListener('error', showFileNotFound);
             previewContent.appendChild(image);
         } else {
             const iframe = document.createElement('iframe');
             iframe.src = url;
             iframe.title = name || 'Preview PDF';
             iframe.className = 'h-full w-full rounded-lg border border-slate-200 bg-white';
+            iframe.addEventListener('error', showFileNotFound);
+            iframe.addEventListener('load', () => {
+                try {
+                    if (iframe.contentDocument?.body?.innerText?.trim() && !iframe.contentDocument.querySelector('embed, object, iframe')) {
+                        const text = iframe.contentDocument.body.innerText.toLowerCase();
+                        if (text.includes('404') || text.includes('not found') || text.includes('file tidak ditemukan')) showFileNotFound();
+                    }
+                } catch (_) {
+                    // Cross-origin PDF viewers cannot be inspected; the iframe remains the preview.
+                }
+            });
             previewContent.appendChild(iframe);
         }
 
