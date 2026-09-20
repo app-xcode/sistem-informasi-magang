@@ -98,25 +98,25 @@
                             <div class="grid gap-3 p-4 sm:grid-cols-2">
                                 <div class="rounded-xl border border-slate-200 bg-white p-4">
                                     <div class="flex items-center justify-between"><span class="text-xs text-slate-500">Pengajuan</span><i class="fa-solid fa-file-circle-check text-sky-500"></i></div>
-                                    <div class="mt-3 text-2xl font-bold text-slate-900">12</div>
+                                    <div class="mt-3 text-2xl font-bold text-slate-900">{{ $totalPengajuan }}</div>
                                     <div class="mt-1 text-xs text-slate-500">Data terkelola</div>
                                 </div>
                                 <div class="rounded-xl border border-slate-200 bg-white p-4">
                                     <div class="flex items-center justify-between"><span class="text-xs text-slate-500">Berlangsung</span><i class="fa-solid fa-briefcase text-emerald-500"></i></div>
-                                    <div class="mt-3 text-2xl font-bold text-slate-900">8</div>
+                                    <div class="mt-3 text-2xl font-bold text-slate-900">{{ $berlangsung }}</div>
                                     <div class="mt-1 text-xs text-slate-500">Peserta aktif</div>
                                 </div>
                             </div>
                             <div class="mx-4 mb-4 rounded-xl border border-slate-200 bg-white p-4">
                                 <div class="flex items-center justify-between">
                                     <span class="text-sm font-semibold text-slate-800">Progress kegiatan</span>
-                                    <span class="text-xs font-semibold text-slate-500">78%</span>
+                                    <span class="text-xs font-semibold text-slate-500">{{ $progress }}%</span>
                                 </div>
-                                <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full w-[78%] rounded-full bg-sky-500"></div></div>
+                                <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full rounded-full bg-sky-500" style="width: {{ $progress }}%"></div></div>
                                 <div class="mt-4 space-y-2.5">
                                     <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600"><i class="fa-solid fa-check"></i></span><span class="flex-1 text-slate-600">Pengajuan disetujui</span><span class="font-semibold text-slate-700">Selesai</span></div>
                                     <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-50 text-sky-600"><i class="fa-solid fa-book"></i></span><span class="flex-1 text-slate-600">Logbook kegiatan</span><span class="font-semibold text-slate-700">Aktif</span></div>
-                                    <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-50 text-amber-600"><i class="fa-solid fa-file-lines"></i></span><span class="flex-1 text-slate-600">Laporan magang</span><span class="font-semibold text-slate-700">Proses</span></div>
+                                    <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-50 text-amber-600"><i class="fa-solid fa-file-lines"></i></span><span class="flex-1 text-slate-600">Laporan magang</span><span class="font-semibold text-slate-700">{{ $selesai }} selesai</span></div>
                                 </div>
                             </div>
                         </div>
