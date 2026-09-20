@@ -5,7 +5,7 @@
     <div><h1 class="text-2xl font-bold tracking-tight text-slate-950">Pengajuan Magang</h1><p class="mt-1 text-sm text-slate-500">Pengajuan mahasiswa yang ditugaskan kepada Anda.</p></div>
     <div class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
         <form method="GET" action="{{ route('dosen.pengajuan') }}" class="flex flex-col gap-3 lg:flex-row">
-            <input name="q" value="{{ $search }}" type="search" placeholder="Cari mahasiswa, NIM, judul, atau perusahaan..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
+            <input name="q" value="{{ $search }}" type="search" placeholder="Cari mahasiswa, NIM, judul, atau instansi..." class="min-w-0 flex-1 rounded-lg border border-slate-300 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
             <select name="status" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm"><option value="">Semua</option><option value="diajukan" @selected($status==='diajukan')>Menunggu</option><option value="disetujui" @selected($status==='disetujui')>Disetujui</option><option value="ditolak" @selected($status==='ditolak')>Ditolak</option></select>
             <select name="per_page" class="rounded-lg border border-slate-300 px-3 py-2.5 text-sm">@foreach([10,25,50,100] as $size)<option value="{{ $size }}" @selected($perPage===$size)>{{ $size }} / halaman</option>@endforeach</select>
             <button class="rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white">Filter</button>
@@ -17,7 +17,7 @@
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div class="overflow-x-auto"><table class="min-w-full divide-y divide-slate-200 text-sm"><thead><tr>
             <th class="px-5 py-3 text-left"><x-table-sort column="mahasiswa" label="Mahasiswa" /></th>
-            <th class="px-5 py-3 text-left"><x-table-sort column="perusahaan" label="Perusahaan" /></th>
+            <th class="px-5 py-3 text-left"><x-table-sort column="instansi" label="Instansi" /></th>
             <th class="px-5 py-3 text-left"><x-table-sort column="judul_magang" label="Judul" /></th>
             <th class="px-5 py-3 text-left"><x-table-sort column="tanggal_pengajuan" label="Tanggal" /></th>
             <th class="px-5 py-3 text-left"><x-table-sort column="status_pengajuan" label="Status" /></th>
