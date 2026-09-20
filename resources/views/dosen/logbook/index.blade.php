@@ -60,7 +60,7 @@
                         <td class="px-5 py-4"><span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ $class }}">{{ ucfirst($item->status_validasi) }}</span></td>
                         <td class="min-w-[250px] px-5 py-4">
                             @if($item->status_validasi === 'menunggu')
-                                <form method="POST" action="{{ route('dosen.logbook.validate', $item) }}" class="space-y-2">
+                                <form method="POST" action="{{ route('dosen.logbook.validate', $item) }}" class="space-y-2 flex flex-col">
                                     @csrf @method('PATCH')
                                     <select name="status_validasi" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs">
                                         <option value="">Pilih keputusan</option>
