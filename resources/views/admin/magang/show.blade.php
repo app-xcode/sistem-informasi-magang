@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <h2 class="text-sm font-bold text-slate-900">Perusahaan / Instansi</h2>
+                    <h2 class="text-sm font-bold text-slate-900">Instansi</h2>
                     <p class="mt-3 font-semibold text-slate-900">{{ $magang->instansi?->nama_instansi ?? '-' }}</p>
                     <p class="mt-1 text-sm text-slate-500">{{ $magang->instansi?->alamat ?? '-' }}</p>
                     <p class="mt-3 text-xs text-slate-500">{{ $magang->instansi?->no_telp ?? '-' }}</p>
