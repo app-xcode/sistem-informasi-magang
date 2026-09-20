@@ -4,10 +4,12 @@
     'data' => [],
     'title' => null,
     'description' => null,
-])
+    'colors' => null,
+]
 
 @php
     $chartId = 'chart-'.str()->random(12);
+    $chartColors = $colors ?? ['#0f172a', '#0ea5e9', '#10b981', '#f59e0b', '#f43f5e', '#64748b'];
 @endphp
 
 <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -38,14 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: @json($data),
                 borderWidth: 2,
                 borderColor: '#ffffff',
-                backgroundColor: @json(collect($labels)->map(function ($label, $index) {
-                    return match ($label) {
-                        'Diajukan' => '#0ea5e9',
-                        'Disetujui' => '#10b981',
-                        'Ditolak' => '#64748b',
-                        default => ['#0f172a', '#0ea5e9', '#10b981', '#f59e0b', '#f43f5e', '#64748b'][$index % 6],
-                    };
-                })->values()),
+                backgroundColor: @json($chartColors),
             }],
         },
         options: {
