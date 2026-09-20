@@ -36,7 +36,7 @@
         <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
             <a href="{{ route('landing') }}" class="flex items-center gap-3">
                 <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white">
-                    <i class="fa-solid fa-graduation-cap text-sm"></i>
+                    <i class="fa-solid fa-book-bookmark text-sm"></i>
                 </span>
                 <div>
                     <div class="text-sm font-bold leading-tight text-slate-950">Sistem Informasi Magang</div>
