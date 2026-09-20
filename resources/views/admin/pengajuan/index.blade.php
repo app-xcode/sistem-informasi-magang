@@ -41,7 +41,7 @@
                             <i class="fa-solid fa-chevron-down text-[9px]" aria-hidden="true"></i>
                         </button>
 
-                        <dialog id="review-modal-{{ $item->id }}" class="w-[calc(100%-2rem)] max-w-lg rounded-xl border border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/40">
+                        <dialog id="review-modal-{{ $item->id }}" class="fixed left-1/2 top-1/2 m-0 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/40">
                             <div class="border-b border-slate-200 px-6 py-4">
                                 <div class="flex items-start justify-between gap-4">
                                     <div>
