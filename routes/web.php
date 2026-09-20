@@ -40,6 +40,8 @@ Route::get('/', function () {
     };
 })->name('home');
 
+Route::view('/home', 'home')->name('landing');
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
