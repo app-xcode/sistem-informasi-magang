@@ -13,6 +13,8 @@ class NotificationService
 {
     public function forUser(User $user): array
     {
+        $this->syncInternshipStatuses();
+
         return match ($user->role) {
             'admin' => $this->admin(),
             'dosen' => $this->dosen($user),
@@ -21,19 +23,44 @@ class NotificationService
         };
     }
 
-    private function admin(): array
+    private function syncInternshipStatuses(): void
     {
-        $count = Magang::where('status_pengajuan', 'diajukan')->count();
+        if (request()->attributes->get('magang_status_synced')) {
+            return;
+        }
 
         $today = Carbon::today();
-        $statusMagangCount = Magang::query()
+
+        Magang::query()
+            ->where('status_pengajuan', 'disetujui')
+            ->where('status_magang', 'belum_mulai')
+            ->whereNotNull('tanggal_mulai')
+            ->whereNotNull('tanggal_selesai')
+            ->whereDate('tanggal_selesai', '<', $today)
+            ->update(['status_magang' => 'selesai']);
+
+        Magang::query()
             ->where('status_pengajuan', 'disetujui')
             ->where('status_magang', 'belum_mulai')
             ->whereNotNull('tanggal_mulai')
             ->whereNotNull('tanggal_selesai')
             ->whereDate('tanggal_mulai', '<=', $today)
             ->whereDate('tanggal_selesai', '>=', $today)
-            ->count();
+            ->update(['status_magang' => 'berlangsung']);
+
+        Magang::query()
+            ->where('status_pengajuan', 'disetujui')
+            ->where('status_magang', 'berlangsung')
+            ->whereNotNull('tanggal_selesai')
+            ->whereDate('tanggal_selesai', '<', $today)
+            ->update(['status_magang' => 'selesai']);
+
+        request()->attributes->set('magang_status_synced', true);
+    }
+
+    private function admin(): array
+    {
+        $count = Magang::where('status_pengajuan', 'diajukan')->count();
 
         $items = collect();
 
@@ -47,22 +74,12 @@ class NotificationService
             ]);
         }
 
-        if ($statusMagangCount > 0) {
-            $items->push([
-                'title' => 'Status magang perlu diperbarui',
-                'description' => $statusMagangCount.' magang sudah masuk periode pelaksanaan dan perlu diubah menjadi Berlangsung.',
-                'href' => route('admin.magang.index', ['status' => 'belum_mulai']),
-                'icon' => 'fa-briefcase',
-                'class' => 'text-sky-600 bg-sky-50',
-            ]);
-        }
-
         return [
             'items' => $items,
             'total' => $items->count(),
             'counts' => [
                 'pengajuan' => $count,
-                'status_magang' => $statusMagangCount,
+                'status_magang' => 0,
             ],
         ];
     }
