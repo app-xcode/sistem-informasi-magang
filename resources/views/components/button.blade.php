@@ -3,7 +3,7 @@
 @php
     $classes = $variant === 'secondary'
         ? 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
-        : 'border border-slate-900 bg-slate-900 text-white hover:bg-slate-800';
+        : 'border border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700';
 
     $label = trim(strip_tags((string) $slot));
     $isAdd = preg_match('/^\+?\s*Tambah\b/i', $label);
