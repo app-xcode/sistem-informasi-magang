@@ -26,13 +26,13 @@
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-slate-200 text-sm">
-                <thead class="bg-slate-50">
+                <thead>
                     <tr>
-                        <th class="px-5 py-3 text-left font-semibold text-slate-600">Mahasiswa</th>
-                        <th class="px-5 py-3 text-left font-semibold text-slate-600">Tanggal</th>
-                        <th class="px-5 py-3 text-left font-semibold text-slate-600">Kegiatan</th>
-                        <th class="px-5 py-3 text-left font-semibold text-slate-600">Status</th>
-                        <th class="px-5 py-3 text-left font-semibold text-slate-600">Validasi</th>
+                        <th class="px-5 py-3 text-left font-semibold">Mahasiswa</th>
+                        <th class="px-5 py-3 text-left font-semibold">Tanggal</th>
+                        <th class="px-5 py-3 text-left font-semibold">Kegiatan</th>
+                        <th class="px-5 py-3 text-left font-semibold">Status</th>
+                        <th class="px-5 py-3 text-left font-semibold">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
@@ -58,20 +58,73 @@
                             @endif
                         </td>
                         <td class="px-5 py-4"><span class="inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ $class }}">{{ ucfirst($item->status_validasi) }}</span></td>
-                        <td class="min-w-[250px] px-5 py-4">
+                        <td class="whitespace-nowrap px-5 py-4">
                             @if($item->status_validasi === 'menunggu')
-                                <form method="POST" action="{{ route('dosen.logbook.validate', $item) }}" class="space-y-2 flex flex-col">
-                                    @csrf @method('PATCH')
-                                    <select name="status_validasi" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs">
-                                        <option value="">Pilih keputusan</option>
-                                        <option value="disetujui">Setujui</option>
-                                        <option value="ditolak">Tolak</option>
-                                    </select>
-                                    <textarea name="catatan_dosen" rows="2" placeholder="Catatan, wajib jika ditolak..." class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs"></textarea>
-                                    <button class="w-full rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white">Simpan Validasi</button>
-                                </form>
+                                <button type="button"
+                                    data-logbook-review-modal="logbook-review-modal-{{ $item->id }}"
+                                    class="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white hover:bg-slate-800"
+                                    title="Validasi logbook">
+                                    <i class="fa-solid fa-check-double" aria-hidden="true"></i>
+                                    Validasi
+                                </button>
+
+                                <dialog id="logbook-review-modal-{{ $item->id }}" class="fixed left-1/2 top-1/2 m-0 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-slate-200 bg-white p-0 shadow-2xl backdrop:bg-slate-950/40">
+                                    <div class="border-b border-slate-200 px-6 py-4">
+                                        <div class="flex items-start justify-between gap-4">
+                                            <div>
+                                                <h2 class="text-lg font-bold text-slate-950">Validasi Logbook</h2>
+                                                <p class="mt-1 text-sm text-slate-500">{{ $item->magang?->mahasiswa?->nama ?? '-' }} · {{ $item->tanggal?->format('d M Y') }}</p>
+                                            </div>
+                                            <button type="button" data-close-logbook-review class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900" aria-label="Tutup">
+                                                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div data-logbook-review-choice class="px-6 py-6">
+                                        <p class="mb-4 text-sm text-slate-600">Pilih tindakan untuk logbook ini.</p>
+                                        <div class="grid gap-3 sm:grid-cols-2">
+                                            <form method="POST" action="{{ route('dosen.logbook.validate', $item) }}">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status_validasi" value="disetujui">
+                                                <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700">
+                                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
+                                                    Setujui
+                                                </button>
+                                            </form>
+                                            <button type="button" data-show-logbook-reject
+                                                class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-rose-600 px-4 py-3 text-sm font-semibold text-white hover:bg-rose-700">
+                                                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                                                Tolak
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <form method="POST" action="{{ route('dosen.logbook.validate', $item) }}" data-logbook-review-reject class="hidden">
+                                        @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="status_validasi" value="ditolak">
+                                        <div class="px-6 py-6">
+                                            <label for="catatan-logbook-{{ $item->id }}" class="mb-1.5 block text-sm font-semibold text-slate-700">
+                                                Alasan Penolakan <span class="text-rose-500">*</span>
+                                            </label>
+                                            <textarea id="catatan-logbook-{{ $item->id }}" name="catatan_dosen" rows="5" required maxlength="1000"
+                                                placeholder="Masukkan alasan penolakan..."
+                                                class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"></textarea>
+                                            <p class="mt-1.5 text-xs text-slate-500">Alasan ini akan ditampilkan kepada mahasiswa.</p>
+                                        </div>
+                                        <div class="flex flex-col-reverse gap-2 border-t border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:justify-end">
+                                            <button type="button" data-back-logbook-review class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">Kembali</button>
+                                            <button type="submit" class="inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800">
+                                                <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+                                                Update
+                                            </button>
+                                        </div>
+                                    </form>
+                                </dialog>
                             @else
-                                <p class="text-xs text-slate-500">{{ $item->catatan_dosen ?: 'Tidak ada catatan.' }}</p>
+                                <p class="max-w-xs whitespace-normal text-xs text-slate-500">{{ $item->catatan_dosen ?: 'Tidak ada catatan.' }}</p>
                             @endif
                         </td>
                     </tr>
@@ -86,4 +139,39 @@
         @endif
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-logbook-review-modal]').forEach((button) => {
+        const modal = document.getElementById(button.dataset.logbookReviewModal);
+        if (!modal) return;
+
+        const choice = modal.querySelector('[data-logbook-review-choice]');
+        const reject = modal.querySelector('[data-logbook-review-reject]');
+
+        const showChoice = () => {
+            choice.classList.remove('hidden');
+            reject.classList.add('hidden');
+        };
+
+        button.addEventListener('click', () => {
+            showChoice();
+            modal.showModal();
+        });
+
+        modal.querySelector('[data-show-logbook-reject]')?.addEventListener('click', () => {
+            choice.classList.add('hidden');
+            reject.classList.remove('hidden');
+            reject.querySelector('textarea')?.focus();
+        });
+
+        modal.querySelector('[data-back-logbook-review]')?.addEventListener('click', showChoice);
+        modal.querySelector('[data-close-logbook-review]')?.addEventListener('click', () => modal.close());
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) modal.close();
+        });
+    });
+});
+</script>
 @endsection
