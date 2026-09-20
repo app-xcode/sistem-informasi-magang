@@ -165,7 +165,7 @@
                     {{-- Button --}}
                     <button
                         type="submit"
-                        class="group flex w-full items-center justify-center gap-2 rounded-xl bg-slate-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-600/20 transition hover:bg-slate-700 hover:shadow-slate-600/30 focus:outline-none focus:ring-4 focus:ring-slate-500/20 active:scale-[0.99]"
+                        class="group flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-3.5 text-sm font-semibold text-white shadow-lg shadow-slate-600/20 transition hover:bg-slate-700 hover:shadow-slate-600/30 focus:outline-none focus:ring-4 focus:ring-slate-500/20 active:scale-[0.99]"
                     >
                         Masuk ke Sistem
 
