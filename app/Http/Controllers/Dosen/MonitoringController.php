@@ -43,7 +43,7 @@ class MonitoringController extends Controller
                 \App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'),
                 $dir
             ),
-            'perusahaan' => fn ($q, $dir) => $q->orderBy(
+            'instansi' => fn ($q, $dir) => $q->orderBy(
                 Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'),
                 $dir
             ),
@@ -54,7 +54,7 @@ class MonitoringController extends Controller
 
         if ($request->query('export') === 'excel') {
             return ExcelXmlExporter::download('monitoring-magang-dosen', [
-                'Mahasiswa', 'NIM', 'Perusahaan', 'Mulai', 'Selesai', 'Status', 'Logbook Disetujui', 'Total Logbook', 'Laporan',
+                'Mahasiswa', 'NIM', 'Instansi', 'Mulai', 'Selesai', 'Status', 'Logbook Disetujui', 'Total Logbook', 'Laporan',
             ], $query->lazy(500)->map(fn ($item) => [
                 $item->mahasiswa?->nama ?? '-',
                 $item->mahasiswa?->nim ?? '-',
