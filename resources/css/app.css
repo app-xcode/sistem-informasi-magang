@@ -47,3 +47,11 @@ table thead th {
         margin-right: 0 !important;
     }
 }
+
+
+/* Prevent mobile browser auto-zoom on form controls */
+input,
+select,
+textarea {
+    font-size: 16px !important;
+}
