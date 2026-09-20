@@ -8,19 +8,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased">
-    <div class="min-h-screen lg:flex">
+<body class="min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 font-sans text-slate-900 antialiased">
+    <div class="min-h-screen w-full max-w-full lg:flex">
         <input id="sidebar-toggle" type="checkbox" class="peer sr-only">
 
         <label for="sidebar-toggle" class="fixed inset-0 z-30 hidden bg-slate-950/40 peer-checked:block lg:hidden" aria-label="Tutup sidebar"></label>
 
         <x-sidebar />
 
-        <div class="min-w-0 flex-1">
+        <div class="min-w-0 w-full max-w-full flex-1">
             <x-topbar :title="$title ?? trim($__env->yieldContent('title', 'Dashboard'))" />
 
-            <main class="px-4 py-6 sm:px-6 lg:px-8">
-                <div class="mx-auto flex max-w-7xl flex-col gap-6">
+            <main class="w-full max-w-full min-w-0 px-4 py-6 sm:px-6 lg:px-8">
+                <div class="mx-auto flex w-full max-w-7xl min-w-0 flex-col gap-6">
                     <x-alert />
 
                     @yield('content')
@@ -28,6 +28,7 @@
             </main>
         </div>
     </div>
+
 <div id="file-preview-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/70 p-4" aria-hidden="true">
     <div class="flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl">
         <div class="flex shrink-0 items-center justify-between border-b border-slate-200 px-4 py-3">
