@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
         [/^Lihat( bukti)?$/i, 'fa-eye'],
         [/^Beri Nilai$/i, 'fa-star'],
         [/^Validasi$/i, 'fa-check-double'],
-        [/^Simpan Validasi$/i, 'fa-check-double'],
     ];
 
     const iconMap = [
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         [/^Beri Nilai$/i, 'fa-star'],
         [/^Setujui$/i, 'fa-check'],
         [/^Tolak$/i, 'fa-xmark'],
-        [/^Simpan Validasi$/i, 'fa-check-double'],
         [/^Validasi$/i, 'fa-check-double'],
         [/^Perbarui( Profil| Password| Data)?$/i, 'fa-floppy-disk'],
         [/^Ubah Password$/i, 'fa-key'],
