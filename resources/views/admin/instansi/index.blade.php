@@ -8,7 +8,7 @@
         <div>
             <p class="text-sm font-medium text-slate-500">Manajemen Data</p>
             <h1 class="mt-1 text-2xl font-bold tracking-tight text-slate-950">Data Instansi</h1>
-            <p class="mt-1 text-sm text-slate-500">Kelola instansi atau instansi tempat pelaksanaan magang.</p>
+            <p class="mt-1 text-sm text-slate-500">Kelola instansi tempat pelaksanaan magang.</p>
         </div>
         <x-button href="{{ route('admin.instansi.create') }}">Tambah Instansi</x-button>
     </div>
