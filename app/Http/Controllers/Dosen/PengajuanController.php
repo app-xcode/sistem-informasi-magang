@@ -37,7 +37,7 @@ class PengajuanController extends Controller
                 \App\Models\Mahasiswa::select('nama')->whereColumn('mahasiswa.id', 'magang.mahasiswa_id'),
                 $dir
             ),
-            'perusahaan' => fn ($q, $dir) => $q->orderBy(
+            'instansi' => fn ($q, $dir) => $q->orderBy(
                 Instansi::select('nama_instansi')->whereColumn('instansi.id', 'magang.instansi_id'),
                 $dir
             ),
@@ -48,7 +48,7 @@ class PengajuanController extends Controller
 
         if ($request->query('export') === 'excel') {
             return ExcelXmlExporter::download('pengajuan-magang-dosen', [
-                'Mahasiswa', 'NIM', 'Perusahaan', 'Judul Magang', 'Tanggal Pengajuan', 'Status',
+                'Mahasiswa', 'NIM', 'Instansi', 'Judul Magang', 'Tanggal Pengajuan', 'Status',
             ], $query->lazy(500)->map(fn ($item) => [
                 $item->mahasiswa?->nama ?? '-',
                 $item->mahasiswa?->nim ?? '-',
