@@ -51,7 +51,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
     Route::resource('mahasiswa', MahasiswaController::class)->except(['show']);
     Route::resource('dosen', DosenController::class)->except(['show']);
-    Route::resource('perusahaan', InstansiController::class)->except(['show']);
+    Route::resource('instansi', InstansiController::class)->except(['show']);
     Route::resource('pengajuan', MagangController::class)->except(['show']);
     Route::patch('/pengajuan/{pengajuan}/review', [MagangController::class, 'review'])->name('pengajuan.review');
     Route::get('/magang', [DataMagangController::class, 'index'])->name('magang.index');
