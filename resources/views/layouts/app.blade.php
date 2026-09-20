@@ -28,5 +28,22 @@
             </main>
         </div>
     </div>
+<div id="file-preview-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/70 p-4" aria-hidden="true">
+    <div class="flex h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-xl bg-white shadow-2xl">
+        <div class="flex shrink-0 items-center justify-between border-b border-slate-200 px-4 py-3">
+            <div>
+                <p class="text-sm font-semibold text-slate-900">Preview Bukti</p>
+                <p id="file-preview-name" class="text-xs text-slate-500"></p>
+            </div>
+            <button type="button" data-close-file-preview class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50" aria-label="Tutup">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div id="file-preview-content" class="min-h-0 flex-1 bg-slate-100 p-3">
+            <div class="flex h-full items-center justify-center text-sm text-slate-500">Memuat preview...</div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
