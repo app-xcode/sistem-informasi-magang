@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const tableActionMap = [
+        [/^Edit( Nilai)?$/i, 'fa-pen'],
+        [/^Hapus$/i, 'fa-trash'],
+        [/^Detail$/i, 'fa-eye'],
+        [/^Download$/i, 'fa-download'],
+        [/^Unduh$/i, 'fa-download'],
+        [/^Lihat( bukti)?$/i, 'fa-eye'],
+        [/^Beri Nilai$/i, 'fa-star'],
+        [/^Validasi$/i, 'fa-check-double'],
+        [/^Simpan Validasi$/i, 'fa-check-double'],
+    ];
+
     const iconMap = [
         [/^\\+?\\s*Tambah\\b/i, 'fa-plus'],
         [/^Cari$/i, 'fa-magnifying-glass'],
@@ -36,9 +48,33 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        const label = el.textContent.trim().replace(/\\s+/g, ' ');
+        const td = el.closest('td');
+        const isLastTableCell = td && td.parentElement && td.cellIndex === td.parentElement.cells.length - 1;
+        const actionMatch = isLastTableCell
+            ? tableActionMap.find(([pattern]) => pattern.test(label))
+            : null;
+
+        if (actionMatch) {
+            if (el.dataset.noIcon !== undefined) return;
+
+            const icon = document.createElement('i');
+            icon.className = `fa-solid ${actionMatch[1]} mr-2 w-4 text-center`;
+            icon.setAttribute('aria-hidden', 'true');
+
+            const span = document.createElement('span');
+            span.className = 'table-action-label';
+            span.textContent = label;
+
+            el.textContent = '';
+            el.append(icon, span);
+            el.classList.add('table-action', 'inline-flex', 'items-center', 'gap-1.5');
+            td.classList.add('table-action-cell');
+            return;
+        }
+
         if (el.dataset.noIcon !== undefined || el.querySelector('i')) return;
 
-        const label = el.textContent.trim().replace(/\\s+/g, ' ');
         const match = iconMap.find(([pattern]) => pattern.test(label));
 
         if (!match) return;
