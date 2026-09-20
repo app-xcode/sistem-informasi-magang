@@ -6,11 +6,9 @@
 
     <title>Sistem Informasi Magang — Kelola Magang Lebih Terstruktur</title>
     <meta name="description" content="Sistem Informasi Magang untuk mengelola pengajuan, bimbingan, logbook, monitoring, laporan, dan penilaian magang secara terstruktur.">
-    <meta name="keywords" content="sistem informasi magang, sistem magang, pengajuan magang, logbook magang, laporan magang, monitoring magang, penilaian magang">
-    <meta name="author" content="Sistem Informasi Magang">
     <meta name="robots" content="index, follow">
+    <meta name="author" content="Sistem Informasi Magang">
     <meta name="theme-color" content="#0f172a">
-    <meta name="application-name" content="Sistem Informasi Magang">
 
     <link rel="canonical" href="{{ url('/home') }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
@@ -23,26 +21,14 @@
     <meta property="og:url" content="{{ url('/home') }}">
     <meta property="og:image" content="{{ asset('favicon.ico') }}">
     <meta property="og:image:alt" content="Sistem Informasi Magang">
-    <meta property="og:image:type" content="image/x-icon">
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Sistem Informasi Magang — Kelola Magang Lebih Terstruktur">
     <meta name="twitter:description" content="Platform pengelolaan magang untuk mahasiswa, dosen, dan admin.">
     <meta name="twitter:image" content="{{ asset('favicon.ico') }}">
-    <meta name="twitter:image:alt" content="Sistem Informasi Magang">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Sistem Informasi Magang",
-        "url": "{{ url('/home') }}",
-        "description": "Platform pengelolaan pengajuan, bimbingan, logbook, monitoring, laporan, dan penilaian magang."
-    }
-    </script>
 </head>
 <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
 
@@ -57,7 +43,6 @@
                     <div class="text-[11px] text-slate-500">Platform Pengelolaan Magang</div>
                 </div>
             </a>
-
             <a href="{{ route('login') }}" class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800">
                 <i class="fa-solid fa-right-to-bracket text-xs"></i>
                 Masuk
@@ -69,24 +54,18 @@
         <section class="relative overflow-hidden border-b border-slate-200 bg-slate-50">
             <div class="absolute -right-32 -top-32 h-80 w-80 rounded-full bg-sky-100/70 blur-3xl"></div>
             <div class="absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-emerald-100/50 blur-3xl"></div>
-
             <div class="relative mx-auto grid min-h-[620px] max-w-7xl items-center gap-12 px-5 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
                 <div>
                     <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-600 shadow-sm">
                         <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
                         Sistem Pengelolaan Magang Terintegrasi
                     </div>
-
                     <h1 class="max-w-2xl text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                        Kelola kegiatan magang
-                        <span class="text-sky-600">lebih terstruktur.</span>
+                        Kelola kegiatan magang <span class="text-sky-600">lebih terstruktur.</span>
                     </h1>
-
                     <p class="mt-6 max-w-xl text-base leading-7 text-slate-600 sm:text-lg">
-                        Satu platform untuk mengelola pengajuan magang, bimbingan, logbook,
-                        laporan, monitoring, hingga penilaian secara lebih mudah dan terorganisir.
+                        Satu platform untuk mengelola pengajuan magang, bimbingan, logbook, laporan, monitoring, hingga penilaian secara lebih mudah dan terorganisir.
                     </p>
-
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                         <a href="{{ route('login') }}" class="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800">
                             <i class="fa-solid fa-arrow-right text-xs"></i>
@@ -97,7 +76,6 @@
                             Lihat Fitur
                         </a>
                     </div>
-
                     <div class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
                         <span><i class="fa-solid fa-check mr-2 text-emerald-600"></i>Berbasis peran</span>
                         <span><i class="fa-solid fa-check mr-2 text-emerald-600"></i>Monitoring terpusat</span>
@@ -117,63 +95,36 @@
                                     <i class="fa-solid fa-chart-line text-sm"></i>
                                 </span>
                             </div>
-
                             <div class="grid gap-3 p-4 sm:grid-cols-2">
                                 <div class="rounded-xl border border-slate-200 bg-white p-4">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-xs text-slate-500">Pengajuan</span>
-                                        <i class="fa-solid fa-file-circle-check text-sky-500"></i>
-                                    </div>
+                                    <div class="flex items-center justify-between"><span class="text-xs text-slate-500">Pengajuan</span><i class="fa-solid fa-file-circle-check text-sky-500"></i></div>
                                     <div class="mt-3 text-2xl font-bold text-slate-900">12</div>
                                     <div class="mt-1 text-xs text-slate-500">Data terkelola</div>
                                 </div>
                                 <div class="rounded-xl border border-slate-200 bg-white p-4">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-xs text-slate-500">Berlangsung</span>
-                                        <i class="fa-solid fa-briefcase text-emerald-500"></i>
-                                    </div>
+                                    <div class="flex items-center justify-between"><span class="text-xs text-slate-500">Berlangsung</span><i class="fa-solid fa-briefcase text-emerald-500"></i></div>
                                     <div class="mt-3 text-2xl font-bold text-slate-900">8</div>
                                     <div class="mt-1 text-xs text-slate-500">Peserta aktif</div>
                                 </div>
                             </div>
-
                             <div class="mx-4 mb-4 rounded-xl border border-slate-200 bg-white p-4">
                                 <div class="flex items-center justify-between">
                                     <span class="text-sm font-semibold text-slate-800">Progress kegiatan</span>
                                     <span class="text-xs font-semibold text-slate-500">78%</span>
                                 </div>
-                                <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
-                                    <div class="h-full w-[78%] rounded-full bg-sky-500"></div>
-                                </div>
+                                <div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full w-[78%] rounded-full bg-sky-500"></div></div>
                                 <div class="mt-4 space-y-2.5">
-                                    <div class="flex items-center gap-3 text-xs">
-                                        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600"><i class="fa-solid fa-check"></i></span>
-                                        <span class="flex-1 text-slate-600">Pengajuan disetujui</span>
-                                        <span class="font-semibold text-slate-700">Selesai</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 text-xs">
-                                        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-50 text-sky-600"><i class="fa-solid fa-book"></i></span>
-                                        <span class="flex-1 text-slate-600">Logbook kegiatan</span>
-                                        <span class="font-semibold text-slate-700">Aktif</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 text-xs">
-                                        <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-50 text-amber-600"><i class="fa-solid fa-file-lines"></i></span>
-                                        <span class="flex-1 text-slate-600">Laporan magang</span>
-                                        <span class="font-semibold text-slate-700">Proses</span>
-                                    </div>
+                                    <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600"><i class="fa-solid fa-check"></i></span><span class="flex-1 text-slate-600">Pengajuan disetujui</span><span class="font-semibold text-slate-700">Selesai</span></div>
+                                    <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-sky-50 text-sky-600"><i class="fa-solid fa-book"></i></span><span class="flex-1 text-slate-600">Logbook kegiatan</span><span class="font-semibold text-slate-700">Aktif</span></div>
+                                    <div class="flex items-center gap-3 text-xs"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-50 text-amber-600"><i class="fa-solid fa-file-lines"></i></span><span class="flex-1 text-slate-600">Laporan magang</span><span class="font-semibold text-slate-700">Proses</span></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="absolute -bottom-5 -left-5 hidden rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-lg sm:block">
                         <div class="flex items-center gap-3">
-                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
-                                <i class="fa-solid fa-shield-halved"></i>
-                            </span>
-                            <div>
-                                <div class="text-xs font-bold text-slate-800">Terorganisir</div>
-                                <div class="text-[11px] text-slate-500">Alur magang terpantau</div>
-                            </div>
+                            <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600"><i class="fa-solid fa-shield-halved"></i></span>
+                            <div><div class="text-xs font-bold text-slate-800">Terorganisir</div><div class="text-[11px] text-slate-500">Alur magang terpantau</div></div>
                         </div>
                     </div>
                 </div>
@@ -186,7 +137,6 @@
                 <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Semua proses dalam satu sistem.</h2>
                 <p class="mt-4 text-slate-600">Dirancang untuk membantu mahasiswa, dosen, dan admin mengelola seluruh alur kegiatan magang.</p>
             </div>
-
             <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ([
                     ['fa-file-signature', 'Pengajuan Magang', 'Ajukan dan pantau proses persetujuan magang secara terstruktur.'],
@@ -197,9 +147,7 @@
                     ['fa-star', 'Penilaian', 'Kelola komponen penilaian dan hasil akhir mahasiswa.'],
                 ] as [$icon, $title, $description])
                     <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                        <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-900 text-white">
-                            <i class="fa-solid {{ $icon }}"></i>
-                        </div>
+                        <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-slate-900 text-white"><i class="fa-solid {{ $icon }}"></i></div>
                         <h3 class="mt-5 font-bold text-slate-900">{{ $title }}</h3>
                         <p class="mt-2 text-sm leading-6 text-slate-500">{{ $description }}</p>
                     </div>
@@ -228,6 +176,5 @@
             <span>Platform Pengelolaan Magang</span>
         </div>
     </footer>
-
 </body>
 </html>
