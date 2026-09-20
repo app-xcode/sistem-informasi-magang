@@ -50,6 +50,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('dosen', DosenController::class)->except(['show']);
     Route::resource('perusahaan', InstansiController::class)->except(['show']);
     Route::resource('pengajuan', MagangController::class)->except(['show']);
+    Route::patch('/pengajuan/{pengajuan}/review', [MagangController::class, 'review'])->name('pengajuan.review');
     Route::get('/magang', [DataMagangController::class, 'index'])->name('magang.index');
     Route::get('/magang/{magang}', [DataMagangController::class, 'show'])->name('magang.show');
     Route::patch('/magang/{magang}/status', [DataMagangController::class, 'updateStatus'])->name('magang.status');
