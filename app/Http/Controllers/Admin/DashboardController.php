@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $stats = [
             'totalMahasiswa' => Mahasiswa::count(),
             'totalDosen' => Dosen::count(),
-            'totalPerusahaan' => Instansi::count(),
+            'totalInstansi' => Instansi::count(),
             'pengajuanMenunggu' => Magang::where('status_pengajuan', 'diajukan')->count(),
             'mahasiswaSedangMagang' => Magang::where('status_pengajuan', 'disetujui')
                 ->where('status_magang', 'berlangsung')
@@ -56,7 +56,7 @@ class DashboardController extends Controller
             ->each(fn ($item) => $aktivitas->push([
                 'type' => 'pengajuan',
                 'title' => 'Pengajuan magang diperbarui',
-                'description' => ($item->mahasiswa?->nama ?? 'Mahasiswa') . ' — ' . ($item->instansi?->nama_instansi ?? 'Perusahaan'),
+                'description' => ($item->mahasiswa?->nama ?? 'Mahasiswa') . ' — ' . ($item->instansi?->nama_instansi ?? 'Instansi'),
                 'status' => $item->status_pengajuan,
                 'date' => $item->updated_at,
             ]));
