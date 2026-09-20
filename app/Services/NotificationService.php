@@ -1,13 +1,13 @@
 <?php
 
-namespace AppServices;
+namespace App\Services;
 
-use AppModelsLogKegiatan;
-use AppModelsLaporan;
-use AppModelsMagang;
-use AppModelsUser;
-use CarbonCarbon;
-use IlluminateSupportCollection;
+use App\Models\LogKegiatan;
+use App\Models\Laporan;
+use App\Models\Magang;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 class NotificationService
 {
@@ -98,7 +98,7 @@ class NotificationService
 
         return [
             'items' => $items,
-            'total' => $items->sum(fn ($item) => (int) preg_replace('/D/', '', $item['description'] ?? '')) ?: $items->count(),
+            'total' => $items->sum(fn ($item) => (int) preg_replace('/\D/', '', $item['description'] ?? '')) ?: $items->count(),
             'counts' => [
                 'logbook' => $logbookCount,
                 'laporan' => $laporanCount,
