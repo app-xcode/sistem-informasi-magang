@@ -63,6 +63,7 @@
                     @php
                         $badge = match ([$role, $menu['label']]) {
                             ['admin', 'Pengajuan Magang'] => $notifications['counts']['pengajuan'] ?? 0,
+                            ['admin', 'Data Magang'] => $notifications['counts']['status_magang'] ?? 0,
                             ['dosen', 'Logbook'] => $notifications['counts']['logbook'] ?? 0,
                             ['dosen', 'Laporan'] => $notifications['counts']['laporan'] ?? 0,
                             ['dosen', 'Penilaian'] => $notifications['counts']['penilaian'] ?? 0,
