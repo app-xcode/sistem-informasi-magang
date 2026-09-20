@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\MonitoringController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PengaturanController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Dosen\DashboardController as DosenDashboardController;
 use App\Http\Controllers\Dosen\LogbookController as DosenLogbookController;
 use App\Http\Controllers\Dosen\ProfileController as DosenProfileController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (!auth()->check()) {
-        return redirect()->route('login');
+        return app(HomeController::class)();
     }
 
     return match (auth()->user()->role) {
@@ -40,7 +41,7 @@ Route::get('/', function () {
     };
 })->name('home');
 
-Route::view('/home', 'home')->name('landing');
+Route::get('/home', fn () => redirect()->route('home'))->name('landing');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
