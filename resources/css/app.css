@@ -19,7 +19,6 @@ table thead th {
     color: #ffffff !important;
 }
 
-
 /* Responsive table actions */
 .table-action-cell {
     white-space: nowrap !important;
@@ -48,10 +47,53 @@ table thead th {
     }
 }
 
-
 /* Prevent mobile browser auto-zoom on form controls */
 input,
 select,
 textarea {
     font-size: 16px !important;
+}
+
+/* Consistent select styling on iOS Safari */
+select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    line-height: 1.5;
+    -webkit-tap-highlight-color: transparent;
+}
+
+select:focus {
+    outline: none;
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgb(148 163 184 / 20%);
+}
+
+select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f8fafc;
+}
+
+/* Custom dropdown arrow */
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #64748b;
+    font-size: 0.75rem;
 }
