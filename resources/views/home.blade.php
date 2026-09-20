@@ -3,10 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistem Informasi Magang untuk mengelola pengajuan, monitoring, logbook, laporan, dan penilaian magang.">
-    <title>Sistem Informasi Magang</title>
+
+    <title>Sistem Informasi Magang — Kelola Magang Lebih Terstruktur</title>
+    <meta name="description" content="Sistem Informasi Magang untuk mengelola pengajuan, bimbingan, logbook, monitoring, laporan, dan penilaian magang secara terstruktur.">
+    <meta name="keywords" content="sistem informasi magang, sistem magang, pengajuan magang, logbook magang, laporan magang, monitoring magang, penilaian magang">
+    <meta name="author" content="Sistem Informasi Magang">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="application-name" content="Sistem Informasi Magang">
+
+    <link rel="canonical" href="{{ url('/home') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Sistem Informasi Magang">
+    <meta property="og:title" content="Sistem Informasi Magang — Kelola Magang Lebih Terstruktur">
+    <meta property="og:description" content="Kelola pengajuan, bimbingan, logbook, monitoring, laporan, dan penilaian magang dalam satu sistem.">
+    <meta property="og:url" content="{{ url('/home') }}">
+    <meta property="og:image" content="{{ asset('favicon.ico') }}">
+    <meta property="og:image:alt" content="Sistem Informasi Magang">
+    <meta property="og:image:type" content="image/x-icon">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sistem Informasi Magang — Kelola Magang Lebih Terstruktur">
+    <meta name="twitter:description" content="Platform pengelolaan magang untuk mahasiswa, dosen, dan admin.">
+    <meta name="twitter:image" content="{{ asset('favicon.ico') }}">
+    <meta name="twitter:image:alt" content="Sistem Informasi Magang">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Sistem Informasi Magang",
+        "url": "{{ url('/home') }}",
+        "description": "Platform pengelolaan pengajuan, bimbingan, logbook, monitoring, laporan, dan penilaian magang."
+    }
+    </script>
 </head>
 <body class="min-h-screen bg-white font-sans text-slate-900 antialiased">
 
