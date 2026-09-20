@@ -37,7 +37,7 @@ class MagangRequest extends FormRequest
         return [
             'mahasiswa_id' => 'mahasiswa',
             'dosen_id' => 'dosen pembimbing',
-            'instansi_id' => 'perusahaan',
+            'instansi_id' => 'instansi',
             'judul_magang' => 'judul magang',
             'tanggal_pengajuan' => 'tanggal pengajuan',
             'tanggal_mulai' => 'tanggal mulai',
