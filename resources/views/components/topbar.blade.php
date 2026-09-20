@@ -15,7 +15,7 @@
                     <i class="fa-solid fa-bell" aria-hidden="true"></i>
                     @if($notifications['total'] > 0)<span class="absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold leading-5 text-white">{{ min($notifications['total'], 99) }}</span>@endif
                 </button>
-                <div class="absolute right-0 top-12 z-50 hidden w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl">
+                <div class="absolute right-0 top-12 z-50 hidden w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl sm:w-[min(22rem,calc(100vw-2rem))] max-sm:fixed max-sm:left-4 max-sm:right-4 max-sm:top-[5.5rem] max-sm:w-auto">
                     <div class="flex items-center justify-between border-b border-slate-200 px-4 py-3"><p class="text-sm font-bold text-slate-900">Notifikasi</p><span class="text-xs text-slate-500">{{ $notifications['total'] }} tindakan</span></div>
                     <div class="max-h-96 overflow-y-auto">
                         @forelse($notifications['items'] as $notification)
