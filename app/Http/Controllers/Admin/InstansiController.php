@@ -50,7 +50,7 @@ class InstansiController extends Controller
         Instansi::create($request->validated());
         return redirect()->route('admin.instansi.index')->with('success', 'Data instansi berhasil ditambahkan.');
     }
-    public function edit(Instansi $instansi): View { return view('admin.instansi.edit', compact('perusahaan')); }
+    public function edit(Instansi $instansi): View { return view('admin.instansi.edit', compact('instansi')); }
     public function update(InstansiRequest $request, Instansi $instansi): RedirectResponse
     {
         $instansi->update($request->validated());
