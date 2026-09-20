@@ -5,7 +5,7 @@
         <div class="flex min-w-0 items-center gap-3">
             <label for="sidebar-toggle" class="inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 shadow-sm hover:bg-slate-50 lg:hidden" aria-label="Buka sidebar"><i class="fa-solid fa-bars" aria-hidden="true"></i></label>
             <div class="min-w-0">
-                <h1 class="truncate text-xl font-bold tracking-tight text-slate-950 sm:text-2xl">Sistem Informasi Magang</h1>
+                <h1 class="font-medium text-slate-600 truncate uppercase">Sistem Informasi Magang</h1>
             </div>
         </div>
         <div class="flex items-center gap-2 sm:gap-3">
