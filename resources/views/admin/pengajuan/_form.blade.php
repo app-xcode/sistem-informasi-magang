@@ -24,9 +24,9 @@
     </div>
 
     <div>
-        <label for="instansi_id" class="mb-1.5 block text-sm font-semibold text-slate-700">Perusahaan / Instansi <span class="text-rose-500">*</span></label>
+        <label for="instansi_id" class="mb-1.5 block text-sm font-semibold text-slate-700">Instansi <span class="text-rose-500">*</span></label>
         <select id="instansi_id" name="instansi_id" required class="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200">
-            <option value="">Pilih perusahaan</option>
+            <option value="">Pilih instansi</option>
             @foreach($instansi as $item)
                 <option value="{{ $item->id }}" @selected(old('instansi_id', $pengajuan->instansi_id ?? '') == $item->id)>{{ $item->nama_instansi }}</option>
             @endforeach
