@@ -25,7 +25,18 @@ class NotificationService
     {
         $count = Magang::where('status_pengajuan', 'diajukan')->count();
 
+        $today = Carbon::today();
+        $statusMagangCount = Magang::query()
+            ->where('status_pengajuan', 'disetujui')
+            ->where('status_magang', 'belum_mulai')
+            ->whereNotNull('tanggal_mulai')
+            ->whereNotNull('tanggal_selesai')
+            ->whereDate('tanggal_mulai', '<=', $today)
+            ->whereDate('tanggal_selesai', '>=', $today)
+            ->count();
+
         $items = collect();
+
         if ($count > 0) {
             $items->push([
                 'title' => 'Pengajuan magang perlu divalidasi',
@@ -36,7 +47,24 @@ class NotificationService
             ]);
         }
 
-        return ['items' => $items, 'total' => $items->count(), 'counts' => ['pengajuan' => $count]];
+        if ($statusMagangCount > 0) {
+            $items->push([
+                'title' => 'Status magang perlu diperbarui',
+                'description' => $statusMagangCount.' magang sudah masuk periode pelaksanaan dan perlu diubah menjadi Berlangsung.',
+                'href' => route('admin.magang.index', ['status' => 'belum_mulai']),
+                'icon' => 'fa-briefcase',
+                'class' => 'text-sky-600 bg-sky-50',
+            ]);
+        }
+
+        return [
+            'items' => $items,
+            'total' => $items->count(),
+            'counts' => [
+                'pengajuan' => $count,
+                'status_magang' => $statusMagangCount,
+            ],
+        ];
     }
 
     private function dosen(User $user): array
