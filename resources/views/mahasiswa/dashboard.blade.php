@@ -64,7 +64,7 @@
             @if ($magang)
                 <dl class="grid gap-4 sm:grid-cols-2">
                     <div>
-                        <dt class="text-xs font-medium text-slate-500">Perusahaan</dt>
+                        <dt class="text-xs font-medium text-slate-500">Instansi</dt>
                         <dd class="mt-1 font-semibold text-slate-950">{{ $magang->instansi?->nama_instansi ?? '-' }}</dd>
                     </div>
                     <div>
