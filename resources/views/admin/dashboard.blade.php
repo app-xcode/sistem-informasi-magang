@@ -29,6 +29,7 @@
                 description="Distribusi pengajuan magang berdasarkan status."
                 :labels="['Diajukan', 'Disetujui', 'Ditolak']"
                 :data="[$pengajuanStatus['diajukan'], $pengajuanStatus['disetujui'], $pengajuanStatus['ditolak']]"
+                :colors="['#0ea5e9', '#10b981', '#64748b']"
             />
         </div>
 
@@ -39,6 +40,7 @@
                 description="Perbandingan status seluruh pengajuan."
                 :labels="['Diajukan', 'Disetujui', 'Ditolak']"
                 :data="[$pengajuanStatus['diajukan'], $pengajuanStatus['disetujui'], $pengajuanStatus['ditolak']]"
+                :colors="['#0ea5e9', '#10b981', '#64748b']"
             />
         </div>
     </div>
