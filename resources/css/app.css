@@ -13,6 +13,7 @@ html,
 body {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
     overflow-x: hidden;
 }
 
@@ -22,11 +23,21 @@ body > div {
     min-width: 0;
 }
 
+@supports (width: 100dvw) {
+    html,
+    body,
+    body > div {
+        width: 100dvw;
+        max-width: 100dvw;
+    }
+}
+
 main,
 main > div,
 main > div > div,
 main section,
 main article {
+    width: 100%;
     min-width: 0;
     max-width: 100%;
 }
@@ -130,5 +141,6 @@ textarea {
 }
 
 canvas {
+    display: block;
     max-width: 100% !important;
 }
