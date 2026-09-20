@@ -109,7 +109,7 @@ class AdminFlowTest extends TestCase
             route('admin.dashboard'),
             route('admin.mahasiswa.index'),
             route('admin.dosen.index'),
-            route('admin.perusahaan.index'),
+            route('admin.instansi.index'),
             route('admin.pengajuan.index'),
             route('admin.magang.index'),
             route('admin.monitoring.index'),
