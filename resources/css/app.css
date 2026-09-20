@@ -23,21 +23,26 @@ body > div {
     min-width: 0;
 }
 
-@supports (width: 100dvw) {
-    html,
-    body,
-    body > div {
-        width: 100dvw;
-        max-width: 100dvw;
-    }
-}
-
 main,
 main > div,
 main > div > div,
 main section,
 main article {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Keep grid/card content inside the available mobile width */
+.grid,
+.rounded-xl,
+.select-wrapper {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.grid > *,
+.rounded-xl > * {
     min-width: 0;
     max-width: 100%;
 }
@@ -92,7 +97,6 @@ textarea {
 .select-wrapper {
     position: relative;
     width: 100%;
-    min-width: 0;
 }
 
 .select-wrapper select {
