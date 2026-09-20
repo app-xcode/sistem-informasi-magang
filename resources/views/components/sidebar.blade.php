@@ -5,7 +5,7 @@
             ['label' => 'Dashboard', 'icon' => 'fa-house', 'href' => route('admin.dashboard'), 'active' => request()->routeIs('admin.dashboard')],
             ['label' => 'Data Mahasiswa', 'icon' => 'fa-users', 'href' => route('admin.mahasiswa.index'), 'active' => request()->routeIs('admin.mahasiswa.*')],
             ['label' => 'Data Dosen', 'icon' => 'fa-user-tie', 'href' => route('admin.dosen.index'), 'active' => request()->routeIs('admin.dosen.*')],
-            ['label' => 'Data Perusahaan', 'icon' => 'fa-building', 'href' => route('admin.perusahaan.index'), 'active' => request()->routeIs('admin.perusahaan.*')],
+            ['label' => 'Data Instansi', 'icon' => 'fa-building', 'href' => route('admin.instansi.index'), 'active' => request()->routeIs('admin.instansi.*')],
             ['label' => 'Pengajuan Magang', 'icon' => 'fa-file-circle-plus', 'href' => route('admin.pengajuan.index'), 'active' => request()->routeIs('admin.pengajuan.*')],
             ['label' => 'Data Magang', 'icon' => 'fa-briefcase', 'href' => route('admin.magang.index'), 'active' => request()->routeIs('admin.magang.*')],
             ['label' => 'Monitoring Magang', 'icon' => 'fa-chart-line', 'href' => route('admin.monitoring.index'), 'active' => request()->routeIs('admin.monitoring.*')],
