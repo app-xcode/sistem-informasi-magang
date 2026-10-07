@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
-<body class="min-h-screen bg-slate-400 flex items-center justify-center p-4">
+<body class="min-h-screen bg-slate-400 grid items-center justify-center p-4">
 
     <div class="w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl lg:grid lg:grid-cols-2">
 
