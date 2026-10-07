@@ -148,3 +148,7 @@ canvas {
     display: block;
     max-width: 100% !important;
 }
+
+.max-w-lg {
+    max-width: 32rem !important;
+}
