@@ -96,7 +96,7 @@ textarea {
 /* Consistent select styling on iOS Safari */
 .select-wrapper {
     position: relative;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .select-wrapper select {
