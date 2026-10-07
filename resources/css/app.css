@@ -8,6 +8,45 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+/* Prevent horizontal overflow on mobile Safari */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+body > div {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+main,
+main > div,
+main > div > div,
+main section,
+main article {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* Keep grid/card content inside the available mobile width */
+.grid,
+.rounded-xl,
+.select-wrapper {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.grid > *,
+.rounded-xl > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
 /* Table header styling */
 table thead {
     background-color: #1e293b !important;
@@ -18,7 +57,6 @@ table thead th {
     background-color: #1e293b !important;
     color: #ffffff !important;
 }
-
 
 /* Responsive table actions */
 .table-action-cell {
@@ -46,4 +84,67 @@ table thead th {
     .table-action i {
         margin-right: 0 !important;
     }
+}
+
+/* Prevent mobile browser auto-zoom on form controls */
+input,
+select,
+textarea {
+    font-size: 16px !important;
+}
+
+/* Consistent select styling on iOS Safari */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper select {
+    width: 100%;
+    min-width: 0;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    line-height: 1.5;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.select-wrapper select:focus {
+    outline: none;
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgb(148 163 184 / 20%);
+}
+
+.select-wrapper select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f8fafc;
+}
+
+.select-wrapper::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* Keep dashboard cards inside the mobile viewport */
+.rounded-xl {
+    min-width: 0;
+}
+
+canvas {
+    display: block;
+    max-width: 100% !important;
 }
